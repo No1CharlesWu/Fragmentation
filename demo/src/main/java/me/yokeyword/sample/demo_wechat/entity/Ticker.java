@@ -13,6 +13,11 @@ public class Ticker implements Parcelable {
     public double ticker_high;
     public double ticker_low;
 
+    public double ticker_buy;
+    public double ticker_sell;
+    public long ticker_time;
+
+
 
     public Ticker() {
     }
@@ -23,6 +28,10 @@ public class Ticker implements Parcelable {
         ticker_last = in.readDouble();
         ticker_high = in.readDouble();
         ticker_low = in.readDouble();
+
+        ticker_buy = in.readDouble();
+        ticker_sell = in.readDouble();
+        ticker_time = in.readLong();
     }
 
     @Override
@@ -32,6 +41,10 @@ public class Ticker implements Parcelable {
         dest.writeDouble(ticker_last);
         dest.writeDouble(ticker_high);
         dest.writeDouble(ticker_low);
+
+        dest.writeDouble(ticker_buy);
+        dest.writeDouble(ticker_sell);
+        dest.writeLong(ticker_time);
     }
 
     @Override

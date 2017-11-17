@@ -1,6 +1,7 @@
 package me.yokeyword.sample.demo_wechat;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.annotation.Nullable;
 
 import me.yokeyword.fragmentation.SupportActivity;
@@ -19,6 +20,14 @@ public class MainActivity extends SupportActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wechat_activity_main);
+
+        //个人添加 测试 为在主线程中网络请求
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectDiskReads().detectDiskWrites().detectNetwork()
+                .penaltyLog().build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectLeakedSqlLiteObjects().detectLeakedClosableObjects()
+                .penaltyLog().penaltyDeath().build());
 
         if (findFragment(MainFragment.class) == null) {
             loadRootFragment(R.id.fl_container, MainFragment.newInstance());

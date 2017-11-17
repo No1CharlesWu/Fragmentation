@@ -2,6 +2,7 @@ package me.yokeyword.sample.demo_wechat.ui.fragment.first;
 
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,6 +28,7 @@ import me.yokeyword.sample.demo_wechat.entity.Ticker;
 import me.yokeyword.sample.demo_wechat.event.TabSelectedEvent;
 import me.yokeyword.sample.demo_wechat.listener.OnItemClickListener;
 import me.yokeyword.sample.demo_wechat.ui.fragment.MainFragment;
+import me.yokeyword.sample.demo_wechat.net.Interaction;
 
 /**
  * Created by YoKeyword on 16/6/30.
@@ -40,6 +42,8 @@ public class WechatFirstTabFragment extends BaseMainFragment implements SwipeRef
     private int mScrollTotal;
 
     private TickerAdapter mAdapter;
+
+    private Interaction mInteraction;
 
     public static WechatFirstTabFragment newInstance() {
 
@@ -112,6 +116,7 @@ public class WechatFirstTabFragment extends BaseMainFragment implements SwipeRef
 
         List<Ticker> tickerList = initDatas();
         mAdapter.setDatas(tickerList);
+        mInteraction = new Interaction();
     }
 
     private List<Ticker> initDatas() {
@@ -139,13 +144,33 @@ public class WechatFirstTabFragment extends BaseMainFragment implements SwipeRef
 
     @Override
     public void onRefresh() {
-        mRefreshLayout.postDelayed(new Runnable() {
+//        mRefreshLayout.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                //TODO:这里添加更新数据，模拟
+////                List<Ticker> tickerList = initDatas();
+//
+//                System.out.println(mInteraction.urlPath);
+//
+//                List<Ticker> tickerList = mInteraction.getData();
+//                if (!tickerList.isEmpty()){
+//                    mAdapter.setDatas(tickerList);
+//                }
+//                mRefreshLayout.setRefreshing(false);
+//            }
+//        }, 1500);
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 //TODO:这里添加更新数据，模拟
-                List<Ticker> tickerList = initDatas();
-                mAdapter.setDatas(tickerList);
+//                List<Ticker> tickerList = initDatas();
 
+                System.out.println(mInteraction.urlPath);
+
+                List<Ticker> tickerList = mInteraction.getData();
+                if (!tickerList.isEmpty()){
+                    mAdapter.setDatas(tickerList);
+                }
                 mRefreshLayout.setRefreshing(false);
             }
         }, 1500);
