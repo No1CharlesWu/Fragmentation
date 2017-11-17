@@ -15,9 +15,11 @@ import android.widget.EditText;
 
 import me.yokeyword.sample.R;
 import me.yokeyword.sample.demo_wechat.adapter.MsgAdapter;
+import me.yokeyword.sample.demo_wechat.adapter.TickerAdapter;
 import me.yokeyword.sample.demo_wechat.base.BaseBackFragment;
 import me.yokeyword.sample.demo_wechat.entity.Chat;
 import me.yokeyword.sample.demo_wechat.entity.Msg;
+import me.yokeyword.sample.demo_wechat.entity.Ticker;
 
 /**
  * Created by YoKeyword on 16/6/30.
@@ -30,10 +32,10 @@ public class MsgFragment extends BaseBackFragment {
     private EditText mEtSend;
     private Button mBtnSend;
 
-    private Chat mChat;
+    private Ticker mTicker;
     private MsgAdapter mAdapter;
 
-    public static MsgFragment newInstance(Chat msg) {
+    public static MsgFragment newInstance(Ticker msg) {
 
         Bundle args = new Bundle();
         args.putParcelable(ARG_MSG, msg);
@@ -45,7 +47,7 @@ public class MsgFragment extends BaseBackFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mChat = getArguments().getParcelable(ARG_MSG);
+        mTicker = getArguments().getParcelable(ARG_MSG);
     }
 
     @Nullable
@@ -62,7 +64,7 @@ public class MsgFragment extends BaseBackFragment {
         mEtSend = (EditText) view.findViewById(R.id.et_send);
         mRecy = (RecyclerView) view.findViewById(R.id.recy);
 
-        mToolbar.setTitle(mChat.name);
+        mToolbar.setTitle(mTicker.ticker_name);
         initToolbarNav(mToolbar);
     }
 
@@ -90,7 +92,7 @@ public class MsgFragment extends BaseBackFragment {
             }
         });
 
-        mAdapter.addMsg(new Msg(mChat.message));
+        mAdapter.addMsg(new Msg(mTicker.ticker_name));
     }
 
     @Override

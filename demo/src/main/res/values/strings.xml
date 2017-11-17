@@ -1,4 +1,7 @@
 <resources>
+    <string name="ticker">ticker</string>
+    <string name="btc">BTC</string>
+
     <string name="app_name">Fragmentation</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

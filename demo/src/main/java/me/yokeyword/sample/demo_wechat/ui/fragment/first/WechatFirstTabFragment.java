@@ -20,8 +20,10 @@ import java.util.List;
 import me.yokeyword.eventbusactivityscope.EventBusActivityScope;
 import me.yokeyword.sample.R;
 import me.yokeyword.sample.demo_wechat.adapter.ChatAdapter;
+import me.yokeyword.sample.demo_wechat.adapter.TickerAdapter;
 import me.yokeyword.sample.demo_wechat.base.BaseMainFragment;
 import me.yokeyword.sample.demo_wechat.entity.Chat;
+import me.yokeyword.sample.demo_wechat.entity.Ticker;
 import me.yokeyword.sample.demo_wechat.event.TabSelectedEvent;
 import me.yokeyword.sample.demo_wechat.listener.OnItemClickListener;
 import me.yokeyword.sample.demo_wechat.ui.fragment.MainFragment;
@@ -37,7 +39,7 @@ public class WechatFirstTabFragment extends BaseMainFragment implements SwipeRef
     private boolean mInAtTop = true;
     private int mScrollTotal;
 
-    private ChatAdapter mAdapter;
+    private TickerAdapter mAdapter;
 
     public static WechatFirstTabFragment newInstance() {
 
@@ -63,7 +65,7 @@ public class WechatFirstTabFragment extends BaseMainFragment implements SwipeRef
 
         EventBusActivityScope.getDefault(_mActivity).register(this);
 
-        mToolbar.setTitle(R.string.home);
+        mToolbar.setTitle(R.string.btc);
     }
 
     @Override
@@ -80,7 +82,9 @@ public class WechatFirstTabFragment extends BaseMainFragment implements SwipeRef
                 outRect.set(0, 0, 0, space);
             }
         });
-        mAdapter = new ChatAdapter(_mActivity);
+
+        //TODO:修改成我的适配器
+        mAdapter = new TickerAdapter(_mActivity);
         mRecy.setAdapter(mAdapter);
 
         mRecy.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -96,32 +100,39 @@ public class WechatFirstTabFragment extends BaseMainFragment implements SwipeRef
             }
         });
 
-        mAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(int position, View view, RecyclerView.ViewHolder vh) {
-                // 因为启动的MsgFragment是MainFragment的兄弟Fragment,所以需要MainFragment.start()
+//        mAdapter.setOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public void onItemClick(int position, View view, RecyclerView.ViewHolder vh) {
+//                // 因为启动的MsgFragment是MainFragment的兄弟Fragment,所以需要MainFragment.start()
+//
+//                // 也可以像使用getParentFragment()的方式,拿到父Fragment来操作 或者使用 EventBusActivityScope
+//              ((MainFragment) getParentFragment()).startBrotherFragment(MsgFragment.newInstance(mAdapter.getMsg(position)));
+//            }
+//        });
 
-                // 也可以像使用getParentFragment()的方式,拿到父Fragment来操作 或者使用 EventBusActivityScope
-              ((MainFragment) getParentFragment()).startBrotherFragment(MsgFragment.newInstance(mAdapter.getMsg(position)));
-            }
-        });
-
-        List<Chat> chatList = initDatas();
-        mAdapter.setDatas(chatList);
+        List<Ticker> tickerList = initDatas();
+        mAdapter.setDatas(tickerList);
     }
 
-    private List<Chat> initDatas() {
-        List<Chat> msgList = new ArrayList<>();
+    private List<Ticker> initDatas() {
+        List<Ticker> msgList = new ArrayList<>();
 
-        String[] name = new String[]{"Jake", "Eric", "Kenny", "Helen", "Carr"};
-        String[] chats = new String[]{"message1", "message2", "message3", "message4", "message5"};
+        String[] name = new String[]{"Bitfinex", "OKCoin", "OKEX", "OKEX本周", "OKEX下周", "OKEX季度"};
+        double[] volume = new double[]{1,2,3,4,5};
+        double[] last = new double[]{1000,2000,3000,4000,5000};
+        double[] low = new double[]{10,20,30,40,50};
+        double[] high = new double[]{100,200,300,400,500};
 
-        for (int i = 0; i < 15; i++) {
+
+        for (int i = 0; i < 6; i++) {
             int index = (int) (Math.random() * 5);
-            Chat chat = new Chat();
-            chat.name = name[index];
-            chat.message = chats[index];
-            msgList.add(chat);
+            Ticker ticker = new Ticker();
+            ticker.ticker_name = name[i];
+            ticker.ticker_volume = volume[index];
+            ticker.ticker_last = last[index];
+            ticker.ticker_high = high[index];
+            ticker.ticker_low = low[index];
+            msgList.add(ticker);
         }
         return msgList;
     }
@@ -131,10 +142,15 @@ public class WechatFirstTabFragment extends BaseMainFragment implements SwipeRef
         mRefreshLayout.postDelayed(new Runnable() {
             @Override
             public void run() {
+                //TODO:这里添加更新数据，模拟
+                List<Ticker> tickerList = initDatas();
+                mAdapter.setDatas(tickerList);
+
                 mRefreshLayout.setRefreshing(false);
             }
-        }, 2500);
+        }, 1500);
     }
+
 
 
     /**

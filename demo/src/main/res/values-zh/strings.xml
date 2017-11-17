@@ -1,4 +1,8 @@
 <resources>
+    <string name="ticker">行情</string>
+    <string name="btc">比特币</string>
+
+
     <string name="app_name">Fragmentation</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
