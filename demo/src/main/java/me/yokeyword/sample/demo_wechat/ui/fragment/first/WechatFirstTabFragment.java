@@ -27,6 +27,7 @@ import me.yokeyword.sample.demo_wechat.entity.Chat;
 import me.yokeyword.sample.demo_wechat.entity.Ticker;
 import me.yokeyword.sample.demo_wechat.event.TabSelectedEvent;
 import me.yokeyword.sample.demo_wechat.listener.OnItemClickListener;
+import me.yokeyword.sample.demo_wechat.net.TickerTimer;
 import me.yokeyword.sample.demo_wechat.ui.fragment.MainFragment;
 import me.yokeyword.sample.demo_wechat.net.Interaction;
 
@@ -43,6 +44,7 @@ public class WechatFirstTabFragment extends BaseMainFragment implements SwipeRef
 
     private TickerAdapter mAdapter;
 
+    private TickerTimer mTickerTimer;
     private Interaction mInteraction;
 
     public static WechatFirstTabFragment newInstance() {
@@ -117,6 +119,7 @@ public class WechatFirstTabFragment extends BaseMainFragment implements SwipeRef
         List<Ticker> tickerList = initDatas();
         mAdapter.setDatas(tickerList);
         mInteraction = new Interaction();
+        mTickerTimer = new TickerTimer(1000, 2000, mAdapter);
     }
 
     private List<Ticker> initDatas() {
@@ -144,22 +147,7 @@ public class WechatFirstTabFragment extends BaseMainFragment implements SwipeRef
 
     @Override
     public void onRefresh() {
-//        mRefreshLayout.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                //TODO:这里添加更新数据，模拟
-////                List<Ticker> tickerList = initDatas();
-//
-//                System.out.println(mInteraction.urlPath);
-//
-//                List<Ticker> tickerList = mInteraction.getData();
-//                if (!tickerList.isEmpty()){
-//                    mAdapter.setDatas(tickerList);
-//                }
-//                mRefreshLayout.setRefreshing(false);
-//            }
-//        }, 1500);
-        new Handler().postDelayed(new Runnable() {
+        mRefreshLayout.postDelayed(new Runnable() {
             @Override
             public void run() {
                 //TODO:这里添加更新数据，模拟
@@ -167,10 +155,10 @@ public class WechatFirstTabFragment extends BaseMainFragment implements SwipeRef
 
                 System.out.println(mInteraction.urlPath);
 
-                List<Ticker> tickerList = mInteraction.getData();
-                if (!tickerList.isEmpty()){
-                    mAdapter.setDatas(tickerList);
-                }
+//                List<Ticker> tickerList = mInteraction.getData();
+//                if (!tickerList.isEmpty()){
+//                    mAdapter.setDatas(tickerList);
+//                }
                 mRefreshLayout.setRefreshing(false);
             }
         }, 1500);

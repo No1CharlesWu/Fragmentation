@@ -24,9 +24,7 @@ public class Interaction {
     public String url = "10.70.94.237";
     public String urlPath = "http://" + url + "/test.json";
 
-    public Interaction(){
-
-    }
+    public Interaction(){}
 
     public String getJsonData() {
         //1:确定地址
@@ -78,18 +76,14 @@ public class Interaction {
 
     public List<Ticker> parseJson(String jsonStr) throws JSONException{
         List<Ticker> TList = new ArrayList<>();
-
-
         if (jsonStr.isEmpty()) {
             return TList;
         }
-
-
         JSONArray jsonArray = new JSONArray(jsonStr);
         for (int i = 0; i < jsonArray.length(); i++){
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             Ticker tmp = new Ticker();
-            tmp.ticker_name = jsonObject.getString("type");
+            tmp.ticker_name = parseName(jsonObject.getString("type"));
             tmp.ticker_last = jsonObject.getDouble("last");
             tmp.ticker_high = jsonObject.getDouble("high");
             tmp.ticker_low = jsonObject.getDouble("low");
@@ -97,19 +91,37 @@ public class Interaction {
             tmp.ticker_sell = jsonObject.getDouble("sell");
             tmp.ticker_volume = jsonObject.getDouble("vol");
             tmp.ticker_time = jsonObject.getLong("timestamp");
-
             TList.add(tmp);
         }
         return TList;
     }
 
+    private String parseName(String type){
+        String[] name = new String[]{"Bitfinex", "OKCoin", "OKEX", "OKEX本周", "OKEX下周", "OKEX季度"};
+        if (type.equals("bitfinexcom_rest_btc_ticker")){
+            return name[0];
+        } else if (type.equals("okcoincom_rest_btc_ticker")){
+            return name[1];
+        }else if (type.equals("okexcom_rest_btc_ticker")){
+            return name[2];
+        }else if (type.equals("okexcom_rest_btc_future_ticker_this_week")){
+            return name[3];
+        }else if (type.equals("okexcom_rest_btc_future_ticker_next_week")){
+            return name[4];
+        }else if (type.equals("okexcom_rest_btc_future_ticker_quarter")){
+            return name[5];
+        }
+        else {
+            return "未知";
+        }
+    }
+
+
     public List<Ticker> getData(){
         List<Ticker> tmp = new ArrayList<>();
         try {
             String jsonStr = getJsonData();
-
             tmp = parseJson(jsonStr);
-
         } catch (Exception e){
             e.printStackTrace();
         }

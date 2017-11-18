@@ -31,6 +31,10 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.VH> {
     public void setDatas(List<Ticker> beans) {
         mItems.clear();
         mItems.addAll(beans);
+//        notifyDataSetChanged();
+    }
+
+    public void mNotify(){
         notifyDataSetChanged();
     }
 
