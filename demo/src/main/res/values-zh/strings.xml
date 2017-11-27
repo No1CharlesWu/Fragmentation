@@ -1,6 +1,8 @@
 <resources>
     <string name="ticker">行情</string>
     <string name="btc">比特币</string>
+    <string name="single_market_alert">单个市场预警</string>
+    <string name="market_spread_alert">市场差价预警</string>
 
 
     <string name="app_name">Fragmentation</string>
