@@ -7,8 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import me.yokeyword.eventbusactivityscope.EventBusActivityScope;
 import me.yokeyword.fragmentation.SupportFragment;
 import me.yokeyword.sample.R;
+import me.yokeyword.sample.demo_wechat.ui.fragment.MainFragment;
+import me.yokeyword.sample.demo_wechat.ui.fragment.second.NewFeatureFragment;
 
 /**
  * Created by charles on 2017/11/27 0027.
@@ -37,11 +40,32 @@ public class MeFragment extends SupportFragment{
     }
     private void initView(View view) {
         mTvBtnSettings = (TextView) view.findViewById(R.id.tv_btn_settings);
+        mTvBtnSingle_market_alert = (TextView) view.findViewById(R.id.tv_btn_single_market_alert);
+        mTvBtnMarket_spread_alert = (TextView) view.findViewById(R.id.tv_btn_market_spread_alert);
+
         mTvBtnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                start(PersonalSettingFragment.newInstance());
+                ((MainFragment) getParentFragment().getParentFragment()).startBrotherFragment(NewFeatureFragment.newInstance());
             }
         });
+        mTvBtnSingle_market_alert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainFragment) getParentFragment().getParentFragment()).startBrotherFragment(NewFeatureFragment.newInstance());
+            }
+        });
+        mTvBtnMarket_spread_alert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainFragment) getParentFragment().getParentFragment()).startBrotherFragment(NewFeatureFragment.newInstance());
+            }
+        });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBusActivityScope.getDefault(_mActivity).unregister(this);
     }
 }
