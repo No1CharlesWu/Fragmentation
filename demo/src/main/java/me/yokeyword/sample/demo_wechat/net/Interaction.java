@@ -21,7 +21,7 @@ import me.yokeyword.sample.demo_wechat.entity.Ticker;
  */
 
 public class Interaction {
-    public String url = "10.70.94.237";
+    public String url = "106.14.193.60";
     public String urlPath = "http://" + url + "/test.json";
 
     public Interaction(){}

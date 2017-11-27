@@ -12,6 +12,7 @@ import me.yokeyword.sample.R;
 import me.yokeyword.sample.demo_wechat.event.TabSelectedEvent;
 import me.yokeyword.sample.demo_wechat.ui.fragment.first.WechatFirstTabFragment;
 import me.yokeyword.sample.demo_wechat.ui.fragment.second.WechatSecondTabFragment;
+import me.yokeyword.sample.demo_wechat.ui.fragment.setting.SettingFragment;
 import me.yokeyword.sample.demo_wechat.ui.fragment.third.WechatThirdTabFragment;
 import me.yokeyword.sample.demo_wechat.ui.view.BottomBar;
 import me.yokeyword.sample.demo_wechat.ui.view.BottomBarTab;
@@ -55,7 +56,7 @@ public class MainFragment extends SupportFragment {
         if (firstFragment == null) {
             mFragments[FIRST] = WechatFirstTabFragment.newInstance();
             mFragments[SECOND] = WechatSecondTabFragment.newInstance();
-            mFragments[THIRD] = WechatThirdTabFragment.newInstance();
+            mFragments[THIRD] = SettingFragment.newInstance();
 
             loadMultipleRootFragment(R.id.fl_tab_container, FIRST,
                     mFragments[FIRST],
@@ -67,7 +68,7 @@ public class MainFragment extends SupportFragment {
             // 这里我们需要拿到mFragments的引用
             mFragments[FIRST] = firstFragment;
             mFragments[SECOND] = findChildFragment(WechatSecondTabFragment.class);
-            mFragments[THIRD] = findChildFragment(WechatThirdTabFragment.class);
+            mFragments[THIRD] = findChildFragment(SettingFragment.class);
         }
     }
 
