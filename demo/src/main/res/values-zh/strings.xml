@@ -3,6 +3,15 @@
     <string name="btc">比特币</string>
     <string name="single_market_alert">单个市场预警</string>
     <string name="market_spread_alert">市场差价预警</string>
+    <string name="alert_list">提醒列表</string>
+    <string-array name="web_list">
+        <item>OKCoin</item>
+        <item>Bitfinex</item>
+        <item>OKEX</item>
+        <item>OKEX本周</item>
+        <item>OKEX下周</item>
+        <item>OKEX季度</item>
+    </string-array>
 
 
     <string name="app_name">Fragmentation</string>

@@ -21,6 +21,7 @@ public class MeFragment extends SupportFragment{
     private TextView mTvBtnSettings;
     private TextView mTvBtnSingle_market_alert;
     private TextView mTvBtnMarket_spread_alert;
+    private TextView mTvBtnAlert_list;
 
     public static MeFragment newInstance() {
 
@@ -42,6 +43,8 @@ public class MeFragment extends SupportFragment{
         mTvBtnSettings = (TextView) view.findViewById(R.id.tv_btn_settings);
         mTvBtnSingle_market_alert = (TextView) view.findViewById(R.id.tv_btn_single_market_alert);
         mTvBtnMarket_spread_alert = (TextView) view.findViewById(R.id.tv_btn_market_spread_alert);
+        mTvBtnAlert_list = (TextView) view.findViewById(R.id.tv_btn_alert_list);
+
 
         mTvBtnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +62,12 @@ public class MeFragment extends SupportFragment{
             @Override
             public void onClick(View v) {
                 ((MainFragment) getParentFragment().getParentFragment()).startBrotherFragment(MarketSpreadAlertFragment.newInstance());
+            }
+        });
+        mTvBtnAlert_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainFragment) getParentFragment().getParentFragment()).startBrotherFragment(AlertListFragment.newInstance());
             }
         });
     }
