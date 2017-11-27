@@ -12,9 +12,9 @@ import me.yokeyword.sample.demo_wechat.base.BaseBackFragment;
 import me.yokeyword.sample.demo_wechat.ui.fragment.CycleFragment;
 import me.yokeyword.sample.demo_wechat.ui.fragment.second.ViewFragment;
 
-public class PersonalSettingFragment extends BaseBackFragment {
-    public static PersonalSettingFragment newInstance() {
-        return new PersonalSettingFragment();
+public class SingleMarketAlertFragment extends BaseBackFragment {
+    public static SingleMarketAlertFragment newInstance() {
+        return new SingleMarketAlertFragment();
     }
 
     @Nullable

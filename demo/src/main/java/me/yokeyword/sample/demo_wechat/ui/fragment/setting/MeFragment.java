@@ -46,19 +46,19 @@ public class MeFragment extends SupportFragment{
         mTvBtnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainFragment) getParentFragment().getParentFragment()).startBrotherFragment(NewFeatureFragment.newInstance());
+                ((MainFragment) getParentFragment().getParentFragment()).startBrotherFragment(PersonalSettingFragment.newInstance());
             }
         });
         mTvBtnSingle_market_alert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainFragment) getParentFragment().getParentFragment()).startBrotherFragment(NewFeatureFragment.newInstance());
+                ((MainFragment) getParentFragment().getParentFragment()).startBrotherFragment(SingleMarketAlertFragment.newInstance());
             }
         });
         mTvBtnMarket_spread_alert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainFragment) getParentFragment().getParentFragment()).startBrotherFragment(NewFeatureFragment.newInstance());
+                ((MainFragment) getParentFragment().getParentFragment()).startBrotherFragment(MarketSpreadAlertFragment.newInstance());
             }
         });
     }
