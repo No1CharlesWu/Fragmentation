@@ -6,6 +6,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import me.yokeyword.sample.R;
 import me.yokeyword.sample.demo_wechat.base.BaseBackFragment;
@@ -13,6 +17,12 @@ import me.yokeyword.sample.demo_wechat.ui.fragment.CycleFragment;
 import me.yokeyword.sample.demo_wechat.ui.fragment.second.ViewFragment;
 
 public class SingleMarketAlertFragment extends BaseBackFragment {
+    private Spinner mSpinner;
+    private EditText mHigh;
+    private EditText mLow;
+    private Button mButton;
+    private Toolbar mToolbar;
+
     public static SingleMarketAlertFragment newInstance() {
         return new SingleMarketAlertFragment();
     }
@@ -21,14 +31,31 @@ public class SingleMarketAlertFragment extends BaseBackFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.single_market_alert_fragment, container, false);
-
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        initToolbarNav(toolbar);
-        toolbar.setTitle(R.string.single_market_alert);
-
-
-
+        initView(view);
         return attachToSwipeBack(view);
+    }
+
+    private  void initView(View view){
+        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        initToolbarNav(mToolbar);
+        mToolbar.setTitle(R.string.single_market_alert);
+
+        mSpinner = (Spinner)view.findViewById(R.id.spinner_web_list);
+        mHigh = (EditText)view.findViewById(R.id.et_high_price);
+        mLow = (EditText)view.findViewById(R.id.et_low_price);
+        mButton = (Button)view.findViewById(R.id.btn_save);
+
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String select_web = mSpinner.getSelectedItem().toString();
+                String high_price = mHigh.getText().toString();
+                String low_price = mLow.getText().toString();
+                String toast_text = "Spinner:" + select_web + "\nHigh:" + high_price + "\nLow:" + low_price;
+                Toast toast=Toast.makeText(getContext(), toast_text, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
     }
 
     @Override

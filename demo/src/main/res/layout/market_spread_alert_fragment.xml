@@ -70,7 +70,7 @@
             android:text="差价高于"/>
 
         <EditText
-            android:id="@+id/Et_high_price"
+            android:id="@+id/et_spread"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
