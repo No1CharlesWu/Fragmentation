@@ -29,12 +29,11 @@ public class AlertListFragment extends BaseBackFragment implements SwipeRefreshL
     private  boolean mInAtTop = true;
     private  int mScrollTotal;
 
-    private AlertAdapter mAdapter;
+    private  static AlertAdapter mAdapter;
 
 
     public static AlertListFragment newInstance() {
         Bundle args = new Bundle();
-
         AlertListFragment fragment = new AlertListFragment();
         fragment.setArguments(args);
         return fragment;
@@ -49,7 +48,6 @@ public class AlertListFragment extends BaseBackFragment implements SwipeRefreshL
     }
 
     private void initView(View view){
-
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh_layout);
         mRecy = (RecyclerView) view.findViewById(R.id.recy);
