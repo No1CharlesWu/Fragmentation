@@ -99,22 +99,24 @@ public class AlertListFragment extends BaseBackFragment implements SwipeRefreshL
     private List<Alert> initDatas() {
         List<Alert> msgList = new ArrayList<>();
 
+        String[] type = new String[]{"单个市场预警", "市场差价预警"};
         String[] name = new String[]{"Bitfinex", "OKCoin", "OKEX", "OKEX本周", "OKEX下周", "OKEX季度"};
-        double[] volume = new double[]{1,2,3,4,5};
-        double[] last = new double[]{1000,2000,3000,4000,5000};
-        double[] low = new double[]{10,20,30,40,50};
-        double[] high = new double[]{100,200,300,400,500};
+        double[] num = new double[]{1,2,3,4,5,6};
 
 
         for (int i = 0; i < 6; i++) {
             int index = (int) (Math.random() * 5);
-            Alert ticker = new Alert();
-            ticker.ticker_name = name[i];
-            ticker.ticker_volume = volume[index];
-            ticker.ticker_last = last[index];
-            ticker.ticker_high = high[index];
-            ticker.ticker_low = low[index];
-            msgList.add(ticker);
+            Alert alert = new Alert();
+            alert.type = i%2;
+            alert.alert_name = type[i%2];
+            alert.Sma_web = name[index];
+            alert.Sma_high_price = num[index];
+            alert.Sma_low_price = num[index];
+
+            alert.Msa_web_high = name[index];
+            alert.Msa_web_low = name[(int)(Math.random() * 5)];
+            alert.Msa_spread = num[index];
+            msgList.add(alert);
         }
         return msgList;
     }

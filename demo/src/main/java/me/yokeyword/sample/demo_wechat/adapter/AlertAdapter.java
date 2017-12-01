@@ -64,11 +64,18 @@ public class AlertAdapter extends RecyclerView.Adapter<AlertAdapter.VH> {
     public void onBindViewHolder(VH holder, int position) {
         Alert item = mItems.get(position);
 
-        holder.tickername.setText(item.ticker_name);
-        holder.tickervolume.setText("量 " + String.valueOf(item.ticker_volume));
-        holder.tickerhigh.setText("高 " + String.valueOf(item.ticker_high));
-        holder.tickerlow.setText("低 " + String.valueOf(item.ticker_low));
-        holder.tickerlast.setText("最新 ¥ " + String.valueOf(item.ticker_last));
+        switch (item.type){
+            case 0:
+                holder.alert_name.setText(item.alert_name);
+                String tmp0 = "当" + item.Sma_web + "高于" + item.Sma_high_price + "低于" + item.Sma_low_price;
+                holder.alert_msg.setText(tmp0);
+                break;
+            case 1:
+                holder.alert_name.setText(item.alert_name);
+                String tmp1 = "当" + item.Msa_web_high + "高于" + item.Msa_web_low + item.Msa_spread;
+                holder.alert_msg.setText(tmp1);
+                break;
+        }
     }
 
     @Override
@@ -85,15 +92,12 @@ public class AlertAdapter extends RecyclerView.Adapter<AlertAdapter.VH> {
     }
 
     class VH extends RecyclerView.ViewHolder {
-        private TextView tickername, tickervolume, tickerlast, tickerhigh, tickerlow;
+        private TextView alert_name, alert_msg;
 
         public VH(View itemView) {
             super(itemView);
-            tickername = (TextView) itemView.findViewById(R.id.ticker_name);
-            tickervolume = (TextView) itemView.findViewById(R.id.ticker_volume);
-            tickerlast = (TextView) itemView.findViewById(R.id.ticker_last);
-            tickerhigh = (TextView) itemView.findViewById(R.id.ticker_high);
-            tickerlow = (TextView) itemView.findViewById(R.id.ticker_low);
+            alert_name = (TextView) itemView.findViewById(R.id.alert_name);
+            alert_msg = (TextView) itemView.findViewById(R.id.alert_msg);
         }
     }
 }

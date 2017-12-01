@@ -7,44 +7,55 @@ import android.os.Parcelable;
  * Created by YoKeyword on 16/6/30.
  */
 public class Alert implements Parcelable {
-    public String ticker_name;
-    public double ticker_volume;
-    public double ticker_last;
-    public double ticker_high;
-    public double ticker_low;
+    public String alert_name;
+    public String alert_msg;
 
-    public double ticker_buy;
-    public double ticker_sell;
-    public long ticker_time;
+    public static final int FIRST = 0; //单个市场预警
+    public static final int SECOND = 1;//市场差价预警
+    public int type = 0;
 
+    //Sma == single_market_alert
+    public String Sma_web = "";
+    public double Sma_high_price = -1;
+    public double Sma_low_price = -1;
 
+    //Msa == market_spread_alert
+    public String Msa_web_high = "";
+    public String Msa_web_low = "";
+    public double Msa_spread = -1;
 
     public Alert() {
     }
 
     protected Alert(Parcel in) {
-        ticker_name = in.readString();
-        ticker_volume = in.readDouble();
-        ticker_last = in.readDouble();
-        ticker_high = in.readDouble();
-        ticker_low = in.readDouble();
+        alert_name = in.readString();
+        alert_msg = in.readString();
 
-        ticker_buy = in.readDouble();
-        ticker_sell = in.readDouble();
-        ticker_time = in.readLong();
+        type = in.readInt();
+
+        Sma_web = in.readString();
+        Sma_high_price = in.readDouble();
+        Sma_low_price = in.readDouble();
+
+        Msa_web_high = in.readString();
+        Msa_web_low = in.readString();
+        Msa_spread = in.readDouble();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(ticker_name);
-        dest.writeDouble(ticker_volume);
-        dest.writeDouble(ticker_last);
-        dest.writeDouble(ticker_high);
-        dest.writeDouble(ticker_low);
+        dest.writeString(alert_name);
+        dest.writeString(alert_msg);
 
-        dest.writeDouble(ticker_buy);
-        dest.writeDouble(ticker_sell);
-        dest.writeLong(ticker_time);
+        dest.writeInt(type);
+
+        dest.writeString(Sma_web);
+        dest.writeDouble(Sma_high_price);
+        dest.writeDouble(Sma_low_price);
+
+        dest.writeString(Msa_web_high);
+        dest.writeString(Msa_web_low);
+        dest.writeDouble(Msa_spread);
     }
 
     @Override
