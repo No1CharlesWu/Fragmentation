@@ -1,30 +1,60 @@
 package me.yokeyword.sample.demo_wechat.ui.fragment.setting;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.yokeyword.sample.R;
-import me.yokeyword.sample.demo_wechat.base.BaseBackFragment;
+import java.util.ArrayList;
+import java.util.List;
 
-public class AlertListFragment extends BaseBackFragment {
+import me.yokeyword.eventbusactivityscope.EventBusActivityScope;
+import me.yokeyword.sample.R;
+import me.yokeyword.sample.demo_wechat.adapter.AlertAdapter;
+import me.yokeyword.sample.demo_wechat.base.BaseBackFragment;
+import me.yokeyword.sample.demo_wechat.entity.Alert;
+
+public class AlertListFragment extends BaseBackFragment implements SwipeRefreshLayout.OnRefreshListener{
+    private Toolbar mToolbar;
+    private SwipeRefreshLayout mRefreshLayout;
+    private RecyclerView mRecy;
+
+    private  boolean mInAtTop = true;
+    private  int mScrollTotal;
+
+    private AlertAdapter mAdapter;
+
+
     public static AlertListFragment newInstance() {
-        return new AlertListFragment();
+        Bundle args = new Bundle();
+
+        AlertListFragment fragment = new AlertListFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.alert_list_fragment, container, false);
-
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        initToolbarNav(toolbar);
-        toolbar.setTitle(R.string.alert_list);
-
+        initView(view);
         return attachToSwipeBack(view);
+    }
+
+    private void initView(View view){
+
+        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh_layout);
+        mRecy = (RecyclerView) view.findViewById(R.id.recy);
+        initToolbarNav(mToolbar);
+        mToolbar.setTitle(R.string.alert_list);
     }
 
     @Override
@@ -32,7 +62,63 @@ public class AlertListFragment extends BaseBackFragment {
         super.onLazyInitView(savedInstanceState);
         // 懒加载
         // 同级Fragment场景、ViewPager场景均适用
+        mRefreshLayout.setOnRefreshListener(this);
+
+        mRecy.setLayoutManager(new LinearLayoutManager(_mActivity));
+        mRecy.setHasFixedSize(true);
+        final int space = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0.5f, getResources().getDisplayMetrics());
+        mRecy.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                outRect.set(0, 0, 0, space);
+            }
+        });
+
+        //TODO:修改成我的适配器
+        mAdapter = new AlertAdapter(_mActivity);
+        mRecy.setAdapter(mAdapter);
+
+        mRecy.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                mScrollTotal += dy;
+                if (mScrollTotal <= 0) {
+                    mInAtTop = true;
+                } else {
+                    mInAtTop = false;
+                }
+            }
+        });
+
+
+        List<Alert> tickerList = initDatas();
+        mAdapter.setDatas(tickerList);
     }
+
+    private List<Alert> initDatas() {
+        List<Alert> msgList = new ArrayList<>();
+
+        String[] name = new String[]{"Bitfinex", "OKCoin", "OKEX", "OKEX本周", "OKEX下周", "OKEX季度"};
+        double[] volume = new double[]{1,2,3,4,5};
+        double[] last = new double[]{1000,2000,3000,4000,5000};
+        double[] low = new double[]{10,20,30,40,50};
+        double[] high = new double[]{100,200,300,400,500};
+
+
+        for (int i = 0; i < 6; i++) {
+            int index = (int) (Math.random() * 5);
+            Alert ticker = new Alert();
+            ticker.ticker_name = name[i];
+            ticker.ticker_volume = volume[index];
+            ticker.ticker_last = last[index];
+            ticker.ticker_high = high[index];
+            ticker.ticker_low = low[index];
+            msgList.add(ticker);
+        }
+        return msgList;
+    }
+
 
     @Override
     public void onSupportVisible() {
@@ -46,5 +132,32 @@ public class AlertListFragment extends BaseBackFragment {
         super.onSupportInvisible();
         // 当对用户不可见时 回调
         // 不管是 父Fragment还是子Fragment 都有效！
+    }
+
+    @Override
+    public void onRefresh() {
+        mRefreshLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //TODO:这里添加更新数据，模拟
+//                List<Ticker> tickerList = initDatas();
+
+//                List<Ticker> tickerList = mInteraction.getData();
+//                if (!tickerList.isEmpty()){
+//                    mAdapter.setDatas(tickerList);
+//                }
+                mRefreshLayout.setRefreshing(false);
+            }
+        }, 1500);
+    }
+
+    private void scrollToTop() {
+        mRecy.smoothScrollToPosition(0);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBusActivityScope.getDefault(_mActivity).unregister(this);
     }
 }
