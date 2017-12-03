@@ -20,6 +20,7 @@ import me.yokeyword.sample.R;
 import me.yokeyword.sample.demo_wechat.adapter.AlertAdapter;
 import me.yokeyword.sample.demo_wechat.base.BaseBackFragment;
 import me.yokeyword.sample.demo_wechat.entity.Alert;
+import me.yokeyword.sample.demo_wechat.ui.fragment.MainFragment;
 
 public class AlertListFragment extends BaseBackFragment implements SwipeRefreshLayout.OnRefreshListener{
     private Toolbar mToolbar;
@@ -73,7 +74,9 @@ public class AlertListFragment extends BaseBackFragment implements SwipeRefreshL
         });
 
         //TODO:修改成我的适配器
-        mAdapter = new AlertAdapter(_mActivity);
+        MainFragment mainFragment = (MainFragment) getActivity().getSupportFragmentManager().findFragmentByTag("MainFragment");
+        mAdapter = new AlertAdapter(_mActivity, mainFragment.getAlertList());
+
         mRecy.setAdapter(mAdapter);
 
         mRecy.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -89,9 +92,9 @@ public class AlertListFragment extends BaseBackFragment implements SwipeRefreshL
             }
         });
 
+//        List<Alert> tickerList = initDatas();
+//        mAdapter.setDatas(tickerList);
 
-        List<Alert> tickerList = initDatas();
-        mAdapter.setDatas(tickerList);
     }
 
     private List<Alert> initDatas() {

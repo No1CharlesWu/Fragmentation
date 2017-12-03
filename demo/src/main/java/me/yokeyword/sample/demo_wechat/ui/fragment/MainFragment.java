@@ -6,9 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import me.yokeyword.eventbusactivityscope.EventBusActivityScope;
 import me.yokeyword.fragmentation.SupportFragment;
 import me.yokeyword.sample.R;
+import me.yokeyword.sample.demo_wechat.entity.Alert;
 import me.yokeyword.sample.demo_wechat.event.TabSelectedEvent;
 import me.yokeyword.sample.demo_wechat.ui.fragment.first.WechatFirstTabFragment;
 import me.yokeyword.sample.demo_wechat.ui.fragment.second.WechatSecondTabFragment;
@@ -30,6 +34,16 @@ public class MainFragment extends SupportFragment {
     private SupportFragment[] mFragments = new SupportFragment[3];
 
     private BottomBar mBottomBar;
+
+    public static List<Alert> alertList = new ArrayList<>();
+
+    public List<Alert> getAlertList(){
+        return alertList;
+    }
+
+    public void addAlertList(Alert item){
+        alertList.add(item);
+    }
 
 
     public static MainFragment newInstance() {

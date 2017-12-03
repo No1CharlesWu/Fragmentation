@@ -21,6 +21,9 @@ public class MainActivity extends SupportActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wechat_activity_main);
 
+        MainFragment mainFragment  = new MainFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fl_container, mainFragment, "MainFragment").commit();
+
         if (findFragment(MainFragment.class) == null) {
             loadRootFragment(R.id.fl_container, MainFragment.newInstance());
         }

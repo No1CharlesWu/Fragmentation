@@ -13,7 +13,9 @@ import android.widget.Toast;
 
 import me.yokeyword.sample.R;
 import me.yokeyword.sample.demo_wechat.base.BaseBackFragment;
+import me.yokeyword.sample.demo_wechat.entity.Alert;
 import me.yokeyword.sample.demo_wechat.ui.fragment.CycleFragment;
+import me.yokeyword.sample.demo_wechat.ui.fragment.MainFragment;
 import me.yokeyword.sample.demo_wechat.ui.fragment.second.ViewFragment;
 
 public class SingleMarketAlertFragment extends BaseBackFragment {
@@ -54,6 +56,15 @@ public class SingleMarketAlertFragment extends BaseBackFragment {
                 String toast_text = "Spinner:" + select_web + "\nHigh:" + high_price + "\nLow:" + low_price;
                 Toast toast=Toast.makeText(getContext(), toast_text, Toast.LENGTH_SHORT);
                 toast.show();
+
+                Alert alert = new Alert();
+                alert.type = 0;
+                alert.alert_name = "单个市场预警";
+                alert.Sma_web = mSpinner.getSelectedItem().toString();
+                alert.Sma_high_price = Double.valueOf(mHigh.getText().toString());
+                alert.Sma_low_price = Double.valueOf(mLow.getText().toString());
+                MainFragment mainFragment = (MainFragment) getActivity().getSupportFragmentManager().findFragmentByTag("MainFragment");
+                mainFragment.addAlertList(alert);
             }
         });
     }
