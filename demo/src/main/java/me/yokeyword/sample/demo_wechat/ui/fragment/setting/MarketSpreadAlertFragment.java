@@ -13,7 +13,9 @@ import android.widget.Toast;
 
 import me.yokeyword.sample.R;
 import me.yokeyword.sample.demo_wechat.base.BaseBackFragment;
+import me.yokeyword.sample.demo_wechat.entity.Alert;
 import me.yokeyword.sample.demo_wechat.ui.fragment.CycleFragment;
+import me.yokeyword.sample.demo_wechat.ui.fragment.MainFragment;
 import me.yokeyword.sample.demo_wechat.ui.fragment.second.ViewFragment;
 
 public class MarketSpreadAlertFragment extends BaseBackFragment {
@@ -54,6 +56,15 @@ public class MarketSpreadAlertFragment extends BaseBackFragment {
                 String toast_text = "Spinner_first:" + select_high_web + "\nSpinner_second:" + select_low_web + "\nSpread:" + spread;
                 Toast toast=Toast.makeText(getContext(), toast_text, Toast.LENGTH_SHORT);
                 toast.show();
+
+                Alert alert = new Alert();
+                alert.type = 1;
+                alert.alert_name = "市场差价预警";
+                alert.Msa_web_high = mSpinner_high.getSelectedItem().toString();
+                alert.Msa_web_low = mSpinner_low.getSelectedItem().toString();
+                alert.Msa_spread = Double.valueOf(mSpread.getText().toString());
+                MainFragment mainFragment = (MainFragment) getActivity().getSupportFragmentManager().findFragmentByTag("MainFragment");
+                mainFragment.addAlertList(alert);
             }
         });
     }

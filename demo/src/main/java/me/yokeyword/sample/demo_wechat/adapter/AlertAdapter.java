@@ -14,17 +14,20 @@ import me.yokeyword.sample.R;
 import me.yokeyword.sample.demo_wechat.entity.Alert;
 import me.yokeyword.sample.demo_wechat.entity.Ticker;
 import me.yokeyword.sample.demo_wechat.listener.OnItemClickListener;
+import me.yokeyword.sample.demo_wechat.ui.fragment.MainFragment;
 
 /**
  * Created by YoKeyword on 16/6/30.
  */
 public class AlertAdapter extends RecyclerView.Adapter<AlertAdapter.VH> {
     private LayoutInflater mInflater;
-    private List<Alert> mItems = new ArrayList<>();
+    private List<Alert> mItems;
+
 
     private OnItemClickListener mClickListener;
 
-    public AlertAdapter(Context context) {
+    public AlertAdapter(Context context, List<Alert> mItems) {
+        this.mItems = mItems;
         mInflater = LayoutInflater.from(context);
     }
 
