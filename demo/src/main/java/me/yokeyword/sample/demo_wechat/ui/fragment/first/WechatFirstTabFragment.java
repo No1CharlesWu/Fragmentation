@@ -23,6 +23,7 @@ import me.yokeyword.sample.R;
 import me.yokeyword.sample.demo_wechat.adapter.ChatAdapter;
 import me.yokeyword.sample.demo_wechat.adapter.TickerAdapter;
 import me.yokeyword.sample.demo_wechat.base.BaseMainFragment;
+import me.yokeyword.sample.demo_wechat.entity.Alert;
 import me.yokeyword.sample.demo_wechat.entity.Chat;
 import me.yokeyword.sample.demo_wechat.entity.Ticker;
 import me.yokeyword.sample.demo_wechat.event.TabSelectedEvent;
@@ -46,6 +47,7 @@ public class WechatFirstTabFragment extends BaseMainFragment implements SwipeRef
 
     private TickerTimer mTickerTimer;
     private Interaction mInteraction;
+    private List<Alert> mLAlert  = new ArrayList<>();
 
     public static WechatFirstTabFragment newInstance() {
 
@@ -119,7 +121,14 @@ public class WechatFirstTabFragment extends BaseMainFragment implements SwipeRef
         List<Ticker> tickerList = initDatas();
         mAdapter.setDatas(tickerList);
         mInteraction = new Interaction();
-        mTickerTimer = new TickerTimer(1000, 2000, mAdapter);
+        MainFragment mainFragment = (MainFragment) getActivity().getSupportFragmentManager().findFragmentByTag("MainFragment");
+
+        mTickerTimer = new TickerTimer(1000, 2000, mAdapter, mLAlert);
+    }
+
+    @Subscribe
+    public void onEvent(List<Alert> data) {
+        this.mLAlert = data;
     }
 
     private List<Ticker> initDatas() {

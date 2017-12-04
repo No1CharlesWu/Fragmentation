@@ -9,7 +9,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import me.yokeyword.sample.demo_wechat.adapter.TickerAdapter;
+import me.yokeyword.sample.demo_wechat.entity.Alert;
 import me.yokeyword.sample.demo_wechat.entity.Ticker;
+import me.yokeyword.sample.demo_wechat.ui.fragment.MainFragment;
+
+import static android.app.PendingIntent.getActivity;
 
 /**
  * Created by charles on 18/11/2017.
@@ -21,11 +25,13 @@ public class TickerTimer {
     public int delay = 1000;
     public int period = 2000;
     private TickerAdapter mAdapter;
+    private List<Alert> mLAlert;
 
-    public TickerTimer(int delay, int period, TickerAdapter mAdapter){
+    public TickerTimer(int delay, int period, TickerAdapter mAdapter, List<Alert> mLAlert){
         this.delay = delay;
         this.period = period;
         this.mAdapter = mAdapter;
+        this.mLAlert = mLAlert;
         mInteraction = new Interaction();
         mTimer = new Timer();
         setTimerTask();
@@ -42,8 +48,13 @@ public class TickerTimer {
             public void run() {
 
                 List<Ticker> mL = mInteraction.getData();
+
                 if (!mL.isEmpty()){
+                    //界面数据更新
                     mAdapter.setDatas(mL);
+                    //设置差价提醒
+                    //TODO:
+                    AlertManager AM = new AlertManager(mL, mLAlert);
                 }
                 Message message = new Message();
                 message.what = 1;

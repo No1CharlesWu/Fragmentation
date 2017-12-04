@@ -161,6 +161,6 @@ public class AlertListFragment extends BaseBackFragment implements SwipeRefreshL
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        EventBusActivityScope.getDefault(_mActivity).unregister(this);
+//        EventBusActivityScope.getDefault(_mActivity).unregister(this);
     }
 }
