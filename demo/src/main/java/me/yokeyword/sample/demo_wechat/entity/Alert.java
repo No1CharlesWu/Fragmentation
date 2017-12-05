@@ -13,6 +13,7 @@ public class Alert implements Parcelable {
     public static final int FIRST = 0; //单个市场预警
     public static final int SECOND = 1;//市场差价预警
     public int type = 0;
+    public int had_alert = 0;//0:没提示过，1：提示过了
 
     //Sma == single_market_alert
     public String Sma_web = "";
@@ -32,6 +33,7 @@ public class Alert implements Parcelable {
         alert_msg = in.readString();
 
         type = in.readInt();
+        had_alert = in.readInt();
 
         Sma_web = in.readString();
         Sma_high_price = in.readDouble();
@@ -48,6 +50,7 @@ public class Alert implements Parcelable {
         dest.writeString(alert_msg);
 
         dest.writeInt(type);
+        dest.writeInt(had_alert);
 
         dest.writeString(Sma_web);
         dest.writeDouble(Sma_high_price);

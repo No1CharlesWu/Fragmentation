@@ -46,8 +46,8 @@ public class ServiceDemo extends IntentService {
                     System.out.println("Service am");
 
                     setNotification(alert);
-
                 }
+                (new AlertManager()).cleanAlert();
                 Thread.sleep(1000);
             }
         }catch (Exception e){

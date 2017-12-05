@@ -63,6 +63,7 @@ public class MarketSpreadAlertFragment extends BaseBackFragment {
 
                     Alert alert = new Alert();
                     alert.type = 1;
+                    alert.had_alert = 0;
                     alert.alert_name = "市场差价预警";
                     alert.Msa_web_high = mSpinner_high.getSelectedItem().toString();
                     alert.Msa_web_low = mSpinner_low.getSelectedItem().toString();

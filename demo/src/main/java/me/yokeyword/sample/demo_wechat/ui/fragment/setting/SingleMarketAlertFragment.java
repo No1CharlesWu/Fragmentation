@@ -63,6 +63,7 @@ public class SingleMarketAlertFragment extends BaseBackFragment {
 
                     Alert alert = new Alert();
                     alert.type = 0;
+                    alert.had_alert = 0;
                     alert.alert_name = "单个市场预警";
                     alert.Sma_web = mSpinner.getSelectedItem().toString();
                     alert.Sma_high_price = Double.valueOf(mHigh.getText().toString());

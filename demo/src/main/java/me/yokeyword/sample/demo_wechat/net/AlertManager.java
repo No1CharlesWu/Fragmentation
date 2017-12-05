@@ -36,9 +36,11 @@ public class AlertManager {
             switch (alert.type){
                 case 0:
                     try {
-                        if (findTicker(alert.Sma_web) != null
+                        if (alert.had_alert == 0
+                                && findTicker(alert.Sma_web) != null
                                 && findTicker(alert.Sma_web).ticker_last >= alert.Sma_high_price
                                 && findTicker(alert.Sma_web).ticker_last <= alert.Sma_low_price){
+                            alert.had_alert = 1;
                             rAList.add(alert);
                             System.out.println("******" + alert.alert_name + alert.Sma_web + "******");
                         }
@@ -48,9 +50,11 @@ public class AlertManager {
                     break;
                 case 1:
                     try{
-                        if (findTicker(alert.Msa_web_high) != null
+                        if (alert.had_alert == 0
+                                && findTicker(alert.Msa_web_high) != null
                                 && findTicker(alert.Msa_web_low) != null
                                 && findTicker(alert.Msa_web_high).ticker_last - findTicker(alert.Msa_web_low).ticker_last >= alert.Msa_spread){
+                            alert.had_alert = 1;
                             rAList.add(alert);
                             System.out.println("******" + alert.alert_name + "******");
                         }
@@ -80,5 +84,9 @@ public class AlertManager {
 
     public List<Alert> getTriggeredAlert(){
         return rAList;
+    }
+
+    public void cleanAlert(){
+        rAList.clear();
     }
 }
