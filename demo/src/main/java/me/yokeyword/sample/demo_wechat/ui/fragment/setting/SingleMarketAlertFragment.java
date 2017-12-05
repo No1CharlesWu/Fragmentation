@@ -67,6 +67,7 @@ public class SingleMarketAlertFragment extends BaseBackFragment {
                     alert.Sma_web = mSpinner.getSelectedItem().toString();
                     alert.Sma_high_price = Double.valueOf(mHigh.getText().toString());
                     alert.Sma_low_price = Double.valueOf(mLow.getText().toString());
+                    alert.alert_msg = "当" + alert.Sma_web + "高于" + alert.Sma_high_price + "低于" + alert.Sma_low_price;
 
                     AlertAdapter tmp = new AlertAdapter();
                     tmp.addAlertList(alert);

@@ -67,6 +67,7 @@ public class MarketSpreadAlertFragment extends BaseBackFragment {
                     alert.Msa_web_high = mSpinner_high.getSelectedItem().toString();
                     alert.Msa_web_low = mSpinner_low.getSelectedItem().toString();
                     alert.Msa_spread = Double.valueOf(mSpread.getText().toString());
+                    alert.alert_msg = "当" + alert.Msa_web_high + "高于" + alert.Msa_web_low + alert.Msa_spread;
 
                     AlertAdapter tmp = new AlertAdapter();
                     tmp.addAlertList(alert);
