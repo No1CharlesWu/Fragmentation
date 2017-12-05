@@ -53,22 +53,28 @@ public class SingleMarketAlertFragment extends BaseBackFragment {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String select_web = mSpinner.getSelectedItem().toString();
-                String high_price = mHigh.getText().toString();
-                String low_price = mLow.getText().toString();
-                String toast_text = "Spinner:" + select_web + "\nHigh:" + high_price + "\nLow:" + low_price;
-                Toast toast=Toast.makeText(getContext(), toast_text, Toast.LENGTH_SHORT);
-                toast.show();
+                try {
+                    String select_web = mSpinner.getSelectedItem().toString();
+                    String high_price = mHigh.getText().toString();
+                    String low_price = mLow.getText().toString();
+                    String toast_text = "Spinner:" + select_web + "\nHigh:" + high_price + "\nLow:" + low_price;
+                    Toast toast=Toast.makeText(getContext(), toast_text, Toast.LENGTH_SHORT);
+                    toast.show();
 
-                Alert alert = new Alert();
-                alert.type = 0;
-                alert.alert_name = "单个市场预警";
-                alert.Sma_web = mSpinner.getSelectedItem().toString();
-                alert.Sma_high_price = Double.valueOf(mHigh.getText().toString());
-                alert.Sma_low_price = Double.valueOf(mLow.getText().toString());
+                    Alert alert = new Alert();
+                    alert.type = 0;
+                    alert.alert_name = "单个市场预警";
+                    alert.Sma_web = mSpinner.getSelectedItem().toString();
+                    alert.Sma_high_price = Double.valueOf(mHigh.getText().toString());
+                    alert.Sma_low_price = Double.valueOf(mLow.getText().toString());
 
-                AlertAdapter tmp = new AlertAdapter();
-                tmp.addAlertList(alert);
+                    AlertAdapter tmp = new AlertAdapter();
+                    tmp.addAlertList(alert);
+                }catch (Exception e){
+                    Toast toast=Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+
             }
         });
     }

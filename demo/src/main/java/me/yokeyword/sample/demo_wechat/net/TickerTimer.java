@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -45,16 +46,13 @@ public class TickerTimer {
         mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-
                 List<Ticker> mL = mInteraction.getData();
-                AlertAdapter tmp = new AlertAdapter();
-                List<Alert> mA = tmp.getAlertList();
                 if (!mL.isEmpty()){
                     //界面数据更新
                     mAdapter.setDatas(mL);
                     //设置差价提醒
                     //TODO:
-                    AlertManager AM = new AlertManager(mL, mA);
+                    AlertManager AM = new AlertManager(mL, (new AlertAdapter()).getAlertList());
                 }
                 Message message = new Message();
                 message.what = 1;

@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.jar.JarEntry;
+
 import me.yokeyword.sample.R;
 import me.yokeyword.sample.demo_wechat.adapter.AlertAdapter;
 import me.yokeyword.sample.demo_wechat.base.BaseBackFragment;
@@ -51,22 +53,27 @@ public class MarketSpreadAlertFragment extends BaseBackFragment {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String select_high_web = mSpinner_high.getSelectedItem().toString();
-                String select_low_web = mSpinner_low.getSelectedItem().toString();
-                String spread = mSpread.getText().toString();
-                String toast_text = "Spinner_first:" + select_high_web + "\nSpinner_second:" + select_low_web + "\nSpread:" + spread;
-                Toast toast=Toast.makeText(getContext(), toast_text, Toast.LENGTH_SHORT);
-                toast.show();
+                try{
+                    String select_high_web = mSpinner_high.getSelectedItem().toString();
+                    String select_low_web = mSpinner_low.getSelectedItem().toString();
+                    String spread = mSpread.getText().toString();
+                    String toast_text = "Spinner_first:" + select_high_web + "\nSpinner_second:" + select_low_web + "\nSpread:" + spread;
+                    Toast toast=Toast.makeText(getContext(), toast_text, Toast.LENGTH_SHORT);
+                    toast.show();
 
-                Alert alert = new Alert();
-                alert.type = 1;
-                alert.alert_name = "市场差价预警";
-                alert.Msa_web_high = mSpinner_high.getSelectedItem().toString();
-                alert.Msa_web_low = mSpinner_low.getSelectedItem().toString();
-                alert.Msa_spread = Double.valueOf(mSpread.getText().toString());
+                    Alert alert = new Alert();
+                    alert.type = 1;
+                    alert.alert_name = "市场差价预警";
+                    alert.Msa_web_high = mSpinner_high.getSelectedItem().toString();
+                    alert.Msa_web_low = mSpinner_low.getSelectedItem().toString();
+                    alert.Msa_spread = Double.valueOf(mSpread.getText().toString());
 
-                AlertAdapter tmp = new AlertAdapter();
-                tmp.addAlertList(alert);
+                    AlertAdapter tmp = new AlertAdapter();
+                    tmp.addAlertList(alert);
+                }catch (Exception e){
+                    Toast toast=Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT);
+                    toast.show();
+                }
 
             }
         });
