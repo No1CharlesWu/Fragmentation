@@ -1,5 +1,6 @@
 package me.yokeyword.sample.demo_wechat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import me.yokeyword.fragmentation.SupportActivity;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 import me.yokeyword.sample.R;
+import me.yokeyword.sample.demo_wechat.net.ServiceDemo;
 import me.yokeyword.sample.demo_wechat.ui.fragment.MainFragment;
 
 /**
@@ -15,6 +17,7 @@ import me.yokeyword.sample.demo_wechat.ui.fragment.MainFragment;
  * Created by YoKeyword on 16/6/30.
  */
 public class MainActivity extends SupportActivity {
+    private Intent intent = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -23,6 +26,9 @@ public class MainActivity extends SupportActivity {
 
         MainFragment mainFragment  = new MainFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.fl_container, mainFragment, "MainFragment").commit();
+
+        intent = new Intent(this, ServiceDemo.class);
+        startService(intent);
 
         if (findFragment(MainFragment.class) == null) {
             loadRootFragment(R.id.fl_container, MainFragment.newInstance());

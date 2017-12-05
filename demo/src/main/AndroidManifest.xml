@@ -37,6 +37,15 @@
         <activity
             android:name=".demo_flow.SwipeBackSampleActivity"
             android:theme="@style/AppTheme.NoActionBar.SwipeBack"/>
+
+        <receiver android:name=".demo_wechat.net.MyReceiver">
+            <intent-filter>
+                <action android:name="CLOCK"/>
+            </intent-filter>
+        </receiver>
+        <service android:name=".demo_wechat.net.ServiceDemo"
+            android:enabled="true" />
+
     </application>
 
 </manifest>

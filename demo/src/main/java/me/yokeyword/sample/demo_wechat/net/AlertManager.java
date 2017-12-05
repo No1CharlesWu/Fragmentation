@@ -17,7 +17,11 @@ public class AlertManager {
     private List<Ticker> mTList;
     private List<Alert> mAList;
 
-    private List<Alert> rAList = new ArrayList<>();
+    private static List<Alert> rAList = new ArrayList<>();
+
+    public AlertManager(){
+
+    }
 
     public AlertManager(List<Ticker> T, List<Alert> A){
         this.mTList = T;
