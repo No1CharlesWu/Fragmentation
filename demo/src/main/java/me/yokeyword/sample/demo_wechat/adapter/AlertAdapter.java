@@ -21,14 +21,23 @@ import me.yokeyword.sample.demo_wechat.ui.fragment.MainFragment;
  */
 public class AlertAdapter extends RecyclerView.Adapter<AlertAdapter.VH> {
     private LayoutInflater mInflater;
-    private List<Alert> mItems;
-
+    private static List<Alert> mItems = new ArrayList<>();
 
     private OnItemClickListener mClickListener;
 
-    public AlertAdapter(Context context, List<Alert> mItems) {
-        this.mItems = mItems;
+    public AlertAdapter(){
+    }
+
+    public AlertAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
+    }
+
+    public void addAlertList(Alert item){
+        mItems.add(item);
+    }
+
+    public List<Alert> getAlertList(){
+        return mItems;
     }
 
     public void setDatas(List<Alert> beans) {

@@ -35,17 +35,6 @@ public class MainFragment extends SupportFragment {
 
     private BottomBar mBottomBar;
 
-    public static List<Alert> alertList = new ArrayList<>();
-
-    public List<Alert> getAlertList(){
-        return alertList;
-    }
-
-    public void addAlertList(Alert item){
-        alertList.add(item);
-    }
-
-
     public static MainFragment newInstance() {
 
         Bundle args = new Bundle();

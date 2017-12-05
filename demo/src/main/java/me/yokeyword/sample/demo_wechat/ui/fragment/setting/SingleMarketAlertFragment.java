@@ -14,6 +14,7 @@ import android.widget.Toast;
 import org.greenrobot.eventbus.EventBus;
 
 import me.yokeyword.sample.R;
+import me.yokeyword.sample.demo_wechat.adapter.AlertAdapter;
 import me.yokeyword.sample.demo_wechat.base.BaseBackFragment;
 import me.yokeyword.sample.demo_wechat.entity.Alert;
 import me.yokeyword.sample.demo_wechat.ui.fragment.CycleFragment;
@@ -65,10 +66,9 @@ public class SingleMarketAlertFragment extends BaseBackFragment {
                 alert.Sma_web = mSpinner.getSelectedItem().toString();
                 alert.Sma_high_price = Double.valueOf(mHigh.getText().toString());
                 alert.Sma_low_price = Double.valueOf(mLow.getText().toString());
-                MainFragment mainFragment = (MainFragment) getActivity().getSupportFragmentManager().findFragmentByTag("MainFragment");
-                mainFragment.addAlertList(alert);
 
-                EventBus.getDefault().post(mainFragment.getAlertList());
+                AlertAdapter tmp = new AlertAdapter();
+                tmp.addAlertList(alert);
             }
         });
     }

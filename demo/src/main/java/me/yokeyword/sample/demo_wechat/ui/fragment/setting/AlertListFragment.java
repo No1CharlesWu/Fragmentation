@@ -29,8 +29,7 @@ public class AlertListFragment extends BaseBackFragment implements SwipeRefreshL
 
     private  boolean mInAtTop = true;
     private  int mScrollTotal;
-
-    private  static AlertAdapter mAdapter;
+    private  AlertAdapter mAdapter;
 
 
     public static AlertListFragment newInstance() {
@@ -74,9 +73,7 @@ public class AlertListFragment extends BaseBackFragment implements SwipeRefreshL
         });
 
         //TODO:修改成我的适配器
-        MainFragment mainFragment = (MainFragment) getActivity().getSupportFragmentManager().findFragmentByTag("MainFragment");
-        mAdapter = new AlertAdapter(_mActivity, mainFragment.getAlertList());
-
+        mAdapter = new AlertAdapter(_mActivity);
         mRecy.setAdapter(mAdapter);
 
         mRecy.addOnScrollListener(new RecyclerView.OnScrollListener() {

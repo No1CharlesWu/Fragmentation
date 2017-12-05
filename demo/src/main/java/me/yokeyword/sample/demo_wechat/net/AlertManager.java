@@ -28,19 +28,19 @@ public class AlertManager {
 
     private void findTriggeredAlert(){
         for (Alert alert:mAList) {
-
             switch (alert.type){
                 case 0:
                     if (findTicker(alert.Sma_web) != null
                             && findTicker(alert.Sma_web).ticker_last >= alert.Sma_high_price
                             && findTicker(alert.Sma_web).ticker_last <= alert.Sma_low_price){
                         rAList.add(alert);
-                        System.out.println("******" + alert.alert_name + alert.alert_msg + "******");
+                        System.out.println("******" + alert.alert_name + alert.Sma_web + "******");
                     }
                     break;
                 case 1:
                     break;
             }
+            System.out.println("jieshu");
         }
     }
 

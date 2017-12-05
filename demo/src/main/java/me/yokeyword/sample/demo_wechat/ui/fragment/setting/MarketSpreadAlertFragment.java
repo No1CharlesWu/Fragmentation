@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import me.yokeyword.sample.R;
+import me.yokeyword.sample.demo_wechat.adapter.AlertAdapter;
 import me.yokeyword.sample.demo_wechat.base.BaseBackFragment;
 import me.yokeyword.sample.demo_wechat.entity.Alert;
 import me.yokeyword.sample.demo_wechat.ui.fragment.CycleFragment;
@@ -63,8 +64,10 @@ public class MarketSpreadAlertFragment extends BaseBackFragment {
                 alert.Msa_web_high = mSpinner_high.getSelectedItem().toString();
                 alert.Msa_web_low = mSpinner_low.getSelectedItem().toString();
                 alert.Msa_spread = Double.valueOf(mSpread.getText().toString());
-                MainFragment mainFragment = (MainFragment) getActivity().getSupportFragmentManager().findFragmentByTag("MainFragment");
-                mainFragment.addAlertList(alert);
+
+                AlertAdapter tmp = new AlertAdapter();
+                tmp.addAlertList(alert);
+
             }
         });
     }
