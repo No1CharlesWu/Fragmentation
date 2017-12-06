@@ -39,8 +39,8 @@ public class ServiceDemo extends IntentService {
 //                for(int i = 0; i < 1; i++){
                 for (Alert alert:list){
                     Intent intent1 = new Intent("CLOCK");
-                    intent.putExtra("msg", "lalalala");
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0, intent, 0);
+                    intent1.putExtra("msg", "lalalala");
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0, intent1, 0);
                     AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
                     alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),pendingIntent);
                     System.out.println("Service am");
