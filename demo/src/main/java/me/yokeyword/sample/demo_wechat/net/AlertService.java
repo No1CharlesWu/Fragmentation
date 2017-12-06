@@ -22,10 +22,10 @@ import me.yokeyword.sample.demo_wechat.entity.Alert;
  * Created by charles on 2017/12/5 0005.
  */
 
-public class ServiceDemo extends IntentService {
+public class AlertService extends IntentService {
     private List<Alert> list = (new AlertManager()).getTriggeredAlert();
 
-    public ServiceDemo() {
+    public AlertService() {
         super("ServiceDemo");
     }
 
@@ -36,15 +36,8 @@ public class ServiceDemo extends IntentService {
         try {
             while(true){
                 list = (new AlertManager()).getTriggeredAlert();
-//                for(int i = 0; i < 1; i++){
                 for (Alert alert:list){
-                    Intent intent1 = new Intent("CLOCK");
-                    intent1.putExtra("msg", "lalalala");
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0, intent1, 0);
-                    AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-                    alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),pendingIntent);
-                    System.out.println("Service am");
-
+                    setAlarm(alert);
                     setNotification(alert);
                 }
                 (new AlertManager()).cleanAlert();
@@ -55,6 +48,19 @@ public class ServiceDemo extends IntentService {
         }
     }
 
+    //设置闹铃提示
+    private void setAlarm(Alert alert){
+        try {
+            Intent intent = new Intent("CLOCK");
+            intent.putExtra("msg", alert.alert_name + " : " + alert.alert_msg);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0, intent, 0);
+            AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+            alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),pendingIntent);
+            System.out.println("Service am");
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
+    }
     //设置提示栏提示
     private void setNotification(Alert alert){
         try {
@@ -62,7 +68,7 @@ public class ServiceDemo extends IntentService {
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
             mBuilder.setContentTitle(alert.alert_name)//设置通知栏标题
                     .setContentText(alert.alert_msg) ///<span style="font-family: Arial;">/设置通知栏显示内容</span>
-//                            .setNumber(number) //设置通知集合的数量
+                    .setNumber(10) //设置通知集合的数量
                     .setTicker("Ticker提醒") //通知首次出现在通知栏，带上升动画效果的
                     .setWhen(System.currentTimeMillis())//通知产生的时间，会在通知信息里显示，一般是系统获取到的时间
 //  .setAutoCancel(true)//设置这个标志当用户单击面板就可以让通知将自动取消

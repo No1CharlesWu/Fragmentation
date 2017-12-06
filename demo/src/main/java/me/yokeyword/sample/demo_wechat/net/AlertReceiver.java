@@ -13,14 +13,16 @@ import android.widget.Toast;
  * Created by charles on 2017/12/5 0005.
  */
 
-public class MyReceiver extends BroadcastReceiver {
+public class AlertReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+        //调试信息输出
         Log.d("MYTAG", "onclock.............");
+        String msg = intent.getStringExtra("msg");
+        Toast.makeText(context,msg,Toast.LENGTH_SHORT).show();
+        //调用播放系统闹钟声音
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         Ringtone r = RingtoneManager.getRingtone(context,notification);
         r.play();
-        String msg = intent.getStringExtra("msg");
-        Toast.makeText(context,msg,Toast.LENGTH_SHORT).show();
     }
 }
