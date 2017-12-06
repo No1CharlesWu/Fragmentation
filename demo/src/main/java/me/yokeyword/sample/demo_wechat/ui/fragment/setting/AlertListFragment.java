@@ -20,7 +20,11 @@ import me.yokeyword.sample.R;
 import me.yokeyword.sample.demo_wechat.adapter.AlertAdapter;
 import me.yokeyword.sample.demo_wechat.base.BaseBackFragment;
 import me.yokeyword.sample.demo_wechat.entity.Alert;
+import me.yokeyword.sample.demo_wechat.listener.OnItemClickListener;
+import me.yokeyword.sample.demo_wechat.ui.fragment.CycleFragment;
 import me.yokeyword.sample.demo_wechat.ui.fragment.MainFragment;
+import me.yokeyword.sample.demo_wechat.ui.fragment.second.NewFeatureFragment;
+import me.yokeyword.sample.demo_wechat.ui.fragment.second.ViewFragment;
 
 public class AlertListFragment extends BaseBackFragment implements SwipeRefreshLayout.OnRefreshListener{
     private Toolbar mToolbar;
@@ -86,6 +90,15 @@ public class AlertListFragment extends BaseBackFragment implements SwipeRefreshL
                 } else {
                     mInAtTop = false;
                 }
+            }
+        });
+
+        mAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, View view, RecyclerView.ViewHolder holder) {
+                extraTransaction()
+                        .setCustomAnimations(R.anim.v_fragment_enter, 0, 0, R.anim.v_fragment_exit)
+                        .startDontHideSelf(ViewFragment.newInstance());
             }
         });
 //        List<Alert> tickerList = initDatas();
