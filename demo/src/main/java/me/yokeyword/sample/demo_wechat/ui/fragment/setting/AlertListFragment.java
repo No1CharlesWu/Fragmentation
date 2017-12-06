@@ -88,10 +88,8 @@ public class AlertListFragment extends BaseBackFragment implements SwipeRefreshL
                 }
             }
         });
-
 //        List<Alert> tickerList = initDatas();
 //        mAdapter.setDatas(tickerList);
-
     }
 
     private List<Alert> initDatas() {

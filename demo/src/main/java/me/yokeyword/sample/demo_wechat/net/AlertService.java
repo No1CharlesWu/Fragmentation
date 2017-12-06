@@ -50,6 +50,7 @@ public class AlertService extends IntentService {
 
     //设置闹铃提示
     private void setAlarm(Alert alert){
+        //TODO：其实这里直接做成RingtoneManager就行了。没必要搞这么多。以后改了
         try {
             Intent intent = new Intent("CLOCK");
             intent.putExtra("msg", alert.alert_name + " : " + alert.alert_msg);

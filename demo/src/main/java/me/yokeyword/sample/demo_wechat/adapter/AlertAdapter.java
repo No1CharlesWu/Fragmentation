@@ -76,6 +76,12 @@ public class AlertAdapter extends RecyclerView.Adapter<AlertAdapter.VH> {
     public void onBindViewHolder(VH holder, int position) {
         Alert item = mItems.get(position);
 
+        if (item.had_alert == 0){
+            holder.had_alert.setText("未提醒");
+        }
+        else if (item.had_alert == 1){
+            holder.had_alert.setText("已提醒");
+        }
         switch (item.type){
             case 0:
                 holder.alert_name.setText(item.alert_name);
@@ -104,12 +110,13 @@ public class AlertAdapter extends RecyclerView.Adapter<AlertAdapter.VH> {
     }
 
     class VH extends RecyclerView.ViewHolder {
-        private TextView alert_name, alert_msg;
+        private TextView alert_name, alert_msg, had_alert;
 
         public VH(View itemView) {
             super(itemView);
             alert_name = (TextView) itemView.findViewById(R.id.alert_name);
             alert_msg = (TextView) itemView.findViewById(R.id.alert_msg);
+            had_alert = (TextView) itemView.findViewById(R.id.had_alert);
         }
     }
 }
