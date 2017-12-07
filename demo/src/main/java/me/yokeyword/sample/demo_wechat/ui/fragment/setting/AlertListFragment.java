@@ -83,7 +83,7 @@ public class AlertListFragment extends BaseBackFragment implements SwipeRefreshL
             }
         });
 
-        //TODO:修改成我的适配器
+        //AlertAdapter的绑定和添加点击事件
         mAdapter = new AlertAdapter(_mActivity);
         mRecy.setAdapter(mAdapter);
 
@@ -104,15 +104,9 @@ public class AlertListFragment extends BaseBackFragment implements SwipeRefreshL
             @Override
             public void onItemClick(int position, View view, RecyclerView.ViewHolder holder) {
                 showPopMenu(view,position);
-//                extraTransaction()
-//                        .setCustomAnimations(R.anim.v_fragment_enter, 0, 0, R.anim.v_fragment_exit)
-//                        .startDontHideSelf(ViewFragment.newInstance());
             }
         });
     }
-
-//        List<Alert> tickerList = initDatas();
-//        mAdapter.setDatas(tickerList);
 
     public void showPopMenu(View view,final int pos){
         PopupMenu popupMenu = new PopupMenu(this.getContext(),view);
@@ -132,6 +126,7 @@ public class AlertListFragment extends BaseBackFragment implements SwipeRefreshL
         popupMenu.show();
     }
 
+    //调试使用 自定义list的数据
     private List<Alert> initDatas() {
         List<Alert> msgList = new ArrayList<>();
 
@@ -177,16 +172,9 @@ public class AlertListFragment extends BaseBackFragment implements SwipeRefreshL
         mRefreshLayout.postDelayed(new Runnable() {
             @Override
             public void run() {
-                //TODO:这里添加更新数据，模拟
-//                List<Ticker> tickerList = initDatas();
-
-//                List<Ticker> tickerList = mInteraction.getData();
-//                if (!tickerList.isEmpty()){
-//                    mAdapter.setDatas(tickerList);
-//                }
                 mRefreshLayout.setRefreshing(false);
             }
-        }, 1500);
+        }, 1000);
     }
 
     private void scrollToTop() {
@@ -196,6 +184,5 @@ public class AlertListFragment extends BaseBackFragment implements SwipeRefreshL
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-//        EventBusActivityScope.getDefault(_mActivity).unregister(this);
     }
 }
