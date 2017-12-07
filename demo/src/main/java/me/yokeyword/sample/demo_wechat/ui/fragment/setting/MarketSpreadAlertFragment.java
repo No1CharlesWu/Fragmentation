@@ -76,6 +76,12 @@ public class MarketSpreadAlertFragment extends BaseBackFragment {
                     Toast toast=Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT);
                     toast.show();
                 }
+                extraTransaction()
+//                        .setTag("CustomTag")
+//                        . ...
+                        .setCustomAnimations(R.anim.v_fragment_enter, R.anim.v_fragment_pop_exit,
+                                R.anim.v_fragment_pop_enter, R.anim.v_fragment_exit)
+                        .start(AlertListFragment.newInstance());
 
             }
         });
