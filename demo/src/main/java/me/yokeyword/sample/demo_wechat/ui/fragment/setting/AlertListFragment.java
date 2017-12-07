@@ -4,13 +4,20 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,13 +103,33 @@ public class AlertListFragment extends BaseBackFragment implements SwipeRefreshL
         mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view, RecyclerView.ViewHolder holder) {
-                extraTransaction()
-                        .setCustomAnimations(R.anim.v_fragment_enter, 0, 0, R.anim.v_fragment_exit)
-                        .startDontHideSelf(ViewFragment.newInstance());
+                showPopMenu(view,position);
+//                extraTransaction()
+//                        .setCustomAnimations(R.anim.v_fragment_enter, 0, 0, R.anim.v_fragment_exit)
+//                        .startDontHideSelf(ViewFragment.newInstance());
             }
         });
+    }
+
 //        List<Alert> tickerList = initDatas();
 //        mAdapter.setDatas(tickerList);
+
+    public void showPopMenu(View view,final int pos){
+        PopupMenu popupMenu = new PopupMenu(this.getContext(),view);
+        popupMenu.getMenuInflater().inflate(R.menu.menu_item,popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                mAdapter.removeItem(pos);
+                return false;
+            }
+        });
+        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
+            @Override
+            public void onDismiss(PopupMenu menu) {
+                Toast.makeText(getContext(), "关闭PopupMenu", Toast.LENGTH_SHORT).show();
+            }
+        });
+        popupMenu.show();
     }
 
     private List<Alert> initDatas() {
