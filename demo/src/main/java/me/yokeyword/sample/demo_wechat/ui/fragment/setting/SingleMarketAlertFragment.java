@@ -65,11 +65,27 @@ public class SingleMarketAlertFragment extends BaseBackFragment {
                     alert.type = 0;
                     alert.had_alert = 0;
                     alert.alert_name = "单个市场预警";
-                    alert.Sma_web = mSpinner.getSelectedItem().toString();
-                    alert.Sma_high_price = Double.valueOf(mHigh.getText().toString());
-                    alert.Sma_low_price = Double.valueOf(mLow.getText().toString());
-                    alert.alert_msg = "当" + alert.Sma_web + "高于" + alert.Sma_high_price + "低于" + alert.Sma_low_price;
+                    alert.Sma_web = mSpinner.getSelectedItem().toString().trim();
 
+                    if (! mHigh.getText().toString().equals(""))
+                        alert.Sma_high_price = Double.valueOf(mHigh.getText().toString().trim());
+                    else
+                        alert.Sma_high_price = 999999;
+
+                    if (! mLow.getText().toString().equals(""))
+                        alert.Sma_low_price = Double.valueOf(mLow.getText().toString().trim());
+                    else
+                        alert.Sma_low_price = -100000;
+
+                    if (alert.Sma_high_price == 999999){
+                        alert.alert_msg = "当" + alert.Sma_web + "低于" + alert.Sma_low_price;
+                    }
+                    else if(alert.Sma_low_price == -100000){
+                        alert.alert_msg = "当" + alert.Sma_web + "高于" + alert.Sma_high_price;
+                    }
+                    else {
+                        alert.alert_msg = "当" + alert.Sma_web + "高于" + alert.Sma_high_price + "低于" + alert.Sma_low_price;
+                    }
                     AlertAdapter tmp = new AlertAdapter();
                     tmp.addAlertList(alert);
 
