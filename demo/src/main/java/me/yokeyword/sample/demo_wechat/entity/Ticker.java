@@ -17,10 +17,10 @@ public class Ticker implements Parcelable {
     public double ticker_sell;
     public long ticker_time;
 
-
-
+    
     public Ticker() {
     }
+
 
     protected Ticker(Parcel in) {
         ticker_name = in.readString();

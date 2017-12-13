@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,11 +65,22 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.VH> {
     public void onBindViewHolder(VH holder, int position) {
         Ticker item = mItems.get(position);
 
+        setDatas(holder, item);
+    }
+
+    private void setDatas(VH holder, Ticker item){
+        DecimalFormat df = new DecimalFormat("#.00");
+
         holder.tickername.setText(item.ticker_name);
-        holder.tickervolume.setText("量 " + String.valueOf(item.ticker_volume));
-        holder.tickerhigh.setText("高 " + String.valueOf(item.ticker_high));
-        holder.tickerlow.setText("低 " + String.valueOf(item.ticker_low));
-        holder.tickerlast.setText("最新 ¥ " + String.valueOf(item.ticker_last));
+        holder.tickerbuy.setText("买一价" + df.format(item.ticker_buy));
+        holder.tickersell.setText("买一价" + df.format(item.ticker_sell));
+        holder.tickervolume.setText("量 " + df.format(item.ticker_volume));
+        holder.tickerlast.setText("最新 ¥ " + df.format(item.ticker_last));
+        holder.tickertime.setText("更新几秒" + df.format(item.ticker_time) +"之前：");
+
+//        holder.tickerhigh.setText("高 " + String.valueOf(item.ticker_high));
+//        holder.tickerlow.setText("低 " + String.valueOf(item.ticker_low));
+
     }
 
     @Override
@@ -85,15 +97,18 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.VH> {
     }
 
     class VH extends RecyclerView.ViewHolder {
-        private TextView tickername, tickervolume, tickerlast, tickerhigh, tickerlow;
+        private TextView tickername, tickervolume, tickerlast, tickerhigh, tickerlow,tickerbuy,tickersell,tickertime;
 
         public VH(View itemView) {
             super(itemView);
             tickername = (TextView) itemView.findViewById(R.id.ticker_name);
             tickervolume = (TextView) itemView.findViewById(R.id.ticker_volume);
             tickerlast = (TextView) itemView.findViewById(R.id.ticker_last);
-            tickerhigh = (TextView) itemView.findViewById(R.id.ticker_high);
-            tickerlow = (TextView) itemView.findViewById(R.id.ticker_low);
+            tickerbuy = (TextView) itemView.findViewById(R.id.ticker_buy);
+            tickersell = (TextView) itemView.findViewById(R.id.ticker_sell);
+            tickertime = (TextView) itemView.findViewById(R.id.ticker_time);
+//            tickerhigh = (TextView) itemView.findViewById(R.id.ticker_high);
+//            tickerlow = (TextView) itemView.findViewById(R.id.ticker_low);
         }
     }
 }
