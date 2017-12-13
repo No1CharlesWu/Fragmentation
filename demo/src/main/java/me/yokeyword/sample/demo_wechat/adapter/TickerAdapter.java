@@ -1,6 +1,7 @@
 package me.yokeyword.sample.demo_wechat.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +21,9 @@ import me.yokeyword.sample.demo_wechat.listener.OnItemClickListener;
  * Created by YoKeyword on 16/6/30.
  */
 public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.VH> {
+    public static int delay = 5;
     private LayoutInflater mInflater;
-    private List<Ticker> mItems = new ArrayList<>();
+    private static List<Ticker> mItems = new ArrayList<>();
 
     private OnItemClickListener mClickListener;
 
@@ -30,8 +32,10 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.VH> {
     }
 
     public void setDatas(List<Ticker> beans) {
+        List<Ticker> tmp;
+        tmp = diffList(beans);
         mItems.clear();
-        mItems.addAll(beans);
+        mItems.addAll(tmp);
 //        notifyDataSetChanged();
     }
 
@@ -76,11 +80,59 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.VH> {
         holder.tickersell.setText("买一价" + df.format(item.ticker_sell));
         holder.tickervolume.setText("量 " + df.format(item.ticker_volume));
         holder.tickerlast.setText("最新 ¥ " + df.format(item.ticker_last));
-        holder.tickertime.setText("更新几秒" + df.format(item.ticker_time) +"之前：");
+
+        long time_tmp = (System.currentTimeMillis() - item.ticker_time) / 1000;
+        holder.tickertime.setText("更新于约" + time_tmp +"之前：");
+
+        if (time_tmp <= delay){
+            holder.tickername.setTextColor(Color.GREEN);
+        }
+        else{
+            holder.tickername.setTextColor(Color.RED);
+        }
 
 //        holder.tickerhigh.setText("高 " + String.valueOf(item.ticker_high));
 //        holder.tickerlow.setText("低 " + String.valueOf(item.ticker_low));
 
+    }
+
+    private List<Ticker> diffList(List<Ticker> list){
+        List<Ticker> tmp = new ArrayList<>();
+        for (Ticker ntmp:list){
+            Ticker mtmp = findTicker(ntmp.ticker_name);
+            if (isSameTicker(mtmp, ntmp)){
+                tmp.add(mtmp);
+            }
+            else{
+               tmp.add(ntmp);
+            }
+        }
+        return tmp;
+    }
+
+    private Ticker findTicker(String name){
+        for (int i = 0; i < mItems.size(); i++) {
+            if (mItems.get(i).ticker_name.equals(name)){
+                return mItems.get(i);
+            }
+        }
+        return null;
+    }
+
+    private boolean isSameTicker(Ticker m, Ticker n){
+        if (m == null){
+            return false;
+        }
+        System.out.println(m.ticker_name);
+
+        if (m.ticker_name.equals(n.ticker_name) &&
+                m.ticker_volume == n.ticker_volume &&
+                m.ticker_last ==n.ticker_last &&
+                m.ticker_buy == n.ticker_buy &&
+                m.ticker_sell == n.ticker_sell)
+            return true;
+        else
+            return false;
     }
 
     @Override
