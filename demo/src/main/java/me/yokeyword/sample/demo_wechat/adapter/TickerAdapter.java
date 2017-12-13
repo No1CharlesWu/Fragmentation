@@ -78,7 +78,8 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.VH> {
         holder.tickername.setText(item.ticker_name);
         holder.tickerbuy.setText("买一价" + df.format(item.ticker_buy));
         holder.tickersell.setText("卖一价" + df.format(item.ticker_sell));
-        holder.tickervolume.setText("量 " + df.format(item.ticker_volume));
+
+        holder.tickervolume.setText("量 " + df.format(item.ticker_volume/10000) + "万");
         holder.tickerlast.setText("最新 ¥ " + df.format(item.ticker_last));
 
         item.time_offset = (System.currentTimeMillis() - item.ticker_time) / 1000;
