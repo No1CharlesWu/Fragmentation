@@ -16,6 +16,7 @@ import me.yokeyword.sample.demo_wechat.entity.Alert;
 import me.yokeyword.sample.demo_wechat.event.TabSelectedEvent;
 import me.yokeyword.sample.demo_wechat.ui.fragment.first.WechatFirstTabFragment;
 import me.yokeyword.sample.demo_wechat.ui.fragment.second.WechatSecondTabFragment;
+import me.yokeyword.sample.demo_wechat.ui.fragment.setting.AlertListFragment;
 import me.yokeyword.sample.demo_wechat.ui.fragment.setting.SettingFragment;
 import me.yokeyword.sample.demo_wechat.ui.fragment.third.WechatThirdTabFragment;
 import me.yokeyword.sample.demo_wechat.ui.view.BottomBar;
@@ -80,7 +81,7 @@ public class MainFragment extends SupportFragment {
 
         mBottomBar
                 .addItem(new BottomBarTab(_mActivity, R.drawable.ic_message_white_24dp, getString(R.string.ticker)))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_account_circle_white_24dp, getString(R.string.discover)))
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_account_circle_white_24dp, getString(R.string.list)))
                 .addItem(new BottomBarTab(_mActivity, R.drawable.ic_discover_white_24dp, getString(R.string.more)));
 
         // 模拟未读消息

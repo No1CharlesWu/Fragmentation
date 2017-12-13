@@ -4,6 +4,7 @@
     <string name="single_market_alert">single market alert</string>
     <string name="market_spread_alert">market spread alert</string>
     <string name="alert_list">alert list</string>
+    <string name="list">list</string>
     <string-array name="web_list">
         <item>OKCoin</item>
         <item>Bitfinex</item>

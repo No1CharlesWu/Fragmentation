@@ -15,6 +15,7 @@ import java.util.jar.JarEntry;
 
 import me.yokeyword.sample.R;
 import me.yokeyword.sample.demo_wechat.adapter.AlertAdapter;
+import me.yokeyword.sample.demo_wechat.adapter.NewAlertAdapter;
 import me.yokeyword.sample.demo_wechat.base.BaseBackFragment;
 import me.yokeyword.sample.demo_wechat.entity.Alert;
 import me.yokeyword.sample.demo_wechat.ui.fragment.CycleFragment;
@@ -72,6 +73,8 @@ public class MarketSpreadAlertFragment extends BaseBackFragment {
 
                     AlertAdapter tmp = new AlertAdapter();
                     tmp.addAlertList(alert);
+                    NewAlertAdapter ntmp = new NewAlertAdapter();
+                    ntmp.addAlertList(alert);
                 }catch (Exception e){
                     Toast toast=Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT);
                     toast.show();
