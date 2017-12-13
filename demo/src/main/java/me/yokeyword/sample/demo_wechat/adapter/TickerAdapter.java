@@ -77,14 +77,14 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.VH> {
 
         holder.tickername.setText(item.ticker_name);
         holder.tickerbuy.setText("买一价" + df.format(item.ticker_buy));
-        holder.tickersell.setText("买一价" + df.format(item.ticker_sell));
+        holder.tickersell.setText("卖一价" + df.format(item.ticker_sell));
         holder.tickervolume.setText("量 " + df.format(item.ticker_volume));
         holder.tickerlast.setText("最新 ¥ " + df.format(item.ticker_last));
 
-        long time_tmp = (System.currentTimeMillis() - item.ticker_time) / 1000;
-        holder.tickertime.setText("更新于约" + time_tmp +"之前：");
+        item.time_offset = (System.currentTimeMillis() - item.ticker_time) / 1000;
+        holder.tickertime.setText("更新于约" + item.time_offset +"秒之前：");
 
-        if (time_tmp <= delay){
+        if (item.time_offset <= delay){
             holder.tickername.setTextColor(Color.GREEN);
         }
         else{
@@ -93,7 +93,6 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.VH> {
 
 //        holder.tickerhigh.setText("高 " + String.valueOf(item.ticker_high));
 //        holder.tickerlow.setText("低 " + String.valueOf(item.ticker_low));
-
     }
 
     private List<Ticker> diffList(List<Ticker> list){

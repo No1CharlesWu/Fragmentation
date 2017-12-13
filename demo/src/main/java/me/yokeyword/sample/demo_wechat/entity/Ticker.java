@@ -17,6 +17,7 @@ public class Ticker implements Parcelable {
     public double ticker_sell;
     public long ticker_time;
 
+    public long time_offset;
     
     public Ticker() {
     }
@@ -32,6 +33,8 @@ public class Ticker implements Parcelable {
         ticker_buy = in.readDouble();
         ticker_sell = in.readDouble();
         ticker_time = in.readLong();
+
+        time_offset = in.readLong();
     }
 
     @Override
@@ -45,6 +48,8 @@ public class Ticker implements Parcelable {
         dest.writeDouble(ticker_buy);
         dest.writeDouble(ticker_sell);
         dest.writeLong(ticker_time);
+
+        dest.writeLong(time_offset);
     }
 
     @Override
