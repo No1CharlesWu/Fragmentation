@@ -43,7 +43,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="与"/>
+            android:text="比"/>
 
         <Spinner
             android:id="@+id/spinner_web_list_second"
@@ -67,7 +67,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="差价高于"/>
+            android:text="高"/>
 
         <EditText
             android:id="@+id/et_spread"
@@ -79,7 +79,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="美元"/>
+            android:text="百分比"/>
     </LinearLayout>
 
     <Button

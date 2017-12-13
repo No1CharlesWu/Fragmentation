@@ -95,7 +95,7 @@ public class AlertAdapter extends RecyclerView.Adapter<AlertAdapter.VH> {
                 break;
             case 1:
                 holder.alert_name.setText(item.alert_name);
-                String tmp1 = "当" + item.Msa_web_high + "高于" + item.Msa_web_low + item.Msa_spread;
+                String tmp1 = "当" + item.Msa_web_high + "比" + item.Msa_web_low + "高" +  item.Msa_spread + "百分比";
                 holder.alert_msg.setText(tmp1);
                 break;
         }
