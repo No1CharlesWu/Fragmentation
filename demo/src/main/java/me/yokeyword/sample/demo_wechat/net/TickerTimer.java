@@ -1,19 +1,15 @@
 package me.yokeyword.sample.demo_wechat.net;
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import me.yokeyword.sample.demo_wechat.adapter.AlertAdapter;
 import me.yokeyword.sample.demo_wechat.adapter.TickerAdapter;
-import me.yokeyword.sample.demo_wechat.entity.Alert;
 import me.yokeyword.sample.demo_wechat.entity.Ticker;
-import me.yokeyword.sample.demo_wechat.ui.fragment.MainFragment;
 
 import static android.app.PendingIntent.getActivity;
 

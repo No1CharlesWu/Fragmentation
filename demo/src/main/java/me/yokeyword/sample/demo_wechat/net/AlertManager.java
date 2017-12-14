@@ -1,8 +1,5 @@
 package me.yokeyword.sample.demo_wechat.net;
 
-import android.app.Activity;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +49,7 @@ public class AlertManager {
                         if (alert.had_alert == 0
                                 && findTicker(alert.Msa_web_high) != null
                                 && findTicker(alert.Msa_web_low) != null
-                                && findTicker(alert.Msa_web_high).ticker_last / findTicker(alert.Msa_web_low).ticker_last >= alert.Msa_spread){
+                                && ((findTicker(alert.Msa_web_high).ticker_last / findTicker(alert.Msa_web_low).ticker_last) - 1) * 100 >= alert.Msa_spread){
                             alert.had_alert = 1;
                             rAList.add(alert);
                             System.out.println("******" + alert.alert_name + "******");

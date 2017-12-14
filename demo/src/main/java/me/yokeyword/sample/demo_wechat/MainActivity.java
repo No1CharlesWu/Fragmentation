@@ -2,7 +2,6 @@ package me.yokeyword.sample.demo_wechat;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.annotation.Nullable;
 
 import me.yokeyword.fragmentation.SupportActivity;

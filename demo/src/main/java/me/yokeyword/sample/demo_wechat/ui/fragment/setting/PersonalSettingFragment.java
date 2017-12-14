@@ -10,11 +10,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Map;
+
 import me.yokeyword.sample.R;
 import me.yokeyword.sample.demo_wechat.adapter.AlertAdapter;
 import me.yokeyword.sample.demo_wechat.adapter.NewAlertAdapter;
 import me.yokeyword.sample.demo_wechat.base.BaseBackFragment;
 import me.yokeyword.sample.demo_wechat.entity.Alert;
+import me.yokeyword.sample.demo_wechat.net.MySharePreference;
 import me.yokeyword.sample.demo_wechat.ui.fragment.CycleFragment;
 import me.yokeyword.sample.demo_wechat.ui.fragment.second.ViewFragment;
 
@@ -24,6 +27,9 @@ public class PersonalSettingFragment extends BaseBackFragment {
     private EditText mrepeat_alert_delay; //检查每隔repeat_alert_delay报警一次
     private Button mButton;
     private Toolbar mToolbar;
+
+    private MySharePreference service;
+
 
     public static PersonalSettingFragment newInstance() {
         return new PersonalSettingFragment();
@@ -47,6 +53,12 @@ public class PersonalSettingFragment extends BaseBackFragment {
         mrepeat_alert_delay = (EditText) view.findViewById(R.id.et_repeat_alert_delay);
         mButton = (Button) view.findViewById(R.id.btn_save);
 
+        service = new MySharePreference(getContext());
+        Map<String, String> params = service.getPreferences();
+        mticker_delay.setText(params.get("ticker_delay"));
+        malert_delay.setText(params.get("alert_delay"));
+        mrepeat_alert_delay.setText(params.get("repeat_alert_delay"));
+
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,7 +69,8 @@ public class PersonalSettingFragment extends BaseBackFragment {
                     String toast_text = "ticker_delay:" + ticker_delay + "\nalert_delay:" + alert_delay + "\nrepeat_alert_delay:" + repeat_alert_delay;
                     Toast toast=Toast.makeText(getContext(), toast_text, Toast.LENGTH_SHORT);
                     toast.show();
-                    
+
+                    save(view);
                 }catch (Exception e){
                     Toast toast=Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT);
                     toast.show();
@@ -65,6 +78,15 @@ public class PersonalSettingFragment extends BaseBackFragment {
             }
         });
     }
+
+    public void save(View v){
+        String ticker_delay = mticker_delay.getText().toString();
+        String alert_delay = malert_delay.getText().toString();
+        String repeat_alert_delay = mrepeat_alert_delay.getText().toString();
+        service.save(Integer.valueOf(ticker_delay),Integer.valueOf(alert_delay),Integer.valueOf(repeat_alert_delay));
+        Toast.makeText(getContext(), "success save", Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
