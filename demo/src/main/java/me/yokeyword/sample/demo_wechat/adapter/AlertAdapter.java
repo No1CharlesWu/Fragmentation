@@ -47,6 +47,16 @@ public class AlertAdapter extends RecyclerView.Adapter<AlertAdapter.VH> {
 //        notifyDataSetChanged();
     }
 
+    public void openItem(int pos){
+        Alert item = mItems.get(pos);
+        item.had_alert = 0;
+        notifyDataSetChanged();
+    }
+    public void closeItem(int pos){
+        Alert item = mItems.get(pos);
+        item.had_alert = 1;
+        notifyDataSetChanged();
+    }
     public void removeItem(int pos){
         mItems.remove(pos);
         notifyItemRemoved(pos);

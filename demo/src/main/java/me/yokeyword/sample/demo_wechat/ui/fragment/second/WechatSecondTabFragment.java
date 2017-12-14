@@ -3,8 +3,6 @@ package me.yokeyword.sample.demo_wechat.ui.fragment.second;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
@@ -19,10 +17,8 @@ import android.widget.Toast;
 
 import org.greenrobot.eventbus.Subscribe;
 
-import me.yokeyword.eventbusactivityscope.EventBusActivityScope;
 import me.yokeyword.sample.R;
-import me.yokeyword.sample.demo_wechat.adapter.NewAlertAdapter;
-import me.yokeyword.sample.demo_wechat.adapter.WechatPagerFragmentAdapter;
+import me.yokeyword.sample.demo_wechat.adapter.AlertAdapter;
 import me.yokeyword.sample.demo_wechat.base.BaseMainFragment;
 import me.yokeyword.sample.demo_wechat.event.TabSelectedEvent;
 import me.yokeyword.sample.demo_wechat.listener.OnItemClickListener;
@@ -38,7 +34,7 @@ public class WechatSecondTabFragment extends BaseMainFragment  implements SwipeR
 
     private boolean mInAtTop = true;
     private int mScrollTotal;
-    private NewAlertAdapter mAdapter;
+    private AlertAdapter mAdapter;
 
     public static WechatSecondTabFragment newInstance() {
 
@@ -80,7 +76,7 @@ public class WechatSecondTabFragment extends BaseMainFragment  implements SwipeR
             }
         });
 
-        mAdapter = new NewAlertAdapter(_mActivity);
+        mAdapter = new AlertAdapter(_mActivity);
         mRecy.setAdapter(mAdapter);
 
         mRecy.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -109,8 +105,19 @@ public class WechatSecondTabFragment extends BaseMainFragment  implements SwipeR
         popupMenu.getMenuInflater().inflate(R.menu.menu_item,popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
-                mAdapter.removeItem(pos);
-                return false;
+                switch (item.getItemId()) {
+                    case R.id.openItem:
+                        mAdapter.openItem(pos);
+                        return true;
+                    case R.id.closeItem:
+                        mAdapter.closeItem(pos);
+                        return true;
+                    case R.id.removeItem:
+                        mAdapter.removeItem(pos);
+                        return true;
+                    default:
+                            return false;
+                }
             }
         });
         popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {

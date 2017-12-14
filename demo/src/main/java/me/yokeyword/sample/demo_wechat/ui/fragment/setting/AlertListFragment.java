@@ -113,8 +113,19 @@ public class AlertListFragment extends BaseBackFragment implements SwipeRefreshL
         popupMenu.getMenuInflater().inflate(R.menu.menu_item,popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
-                mAdapter.removeItem(pos);
-                return false;
+                switch (item.getItemId()) {
+                    case R.id.openItem:
+                        mAdapter.openItem(pos);
+                        return true;
+                    case R.id.closeItem:
+                        mAdapter.closeItem(pos);
+                        return true;
+                    case R.id.removeItem:
+                        mAdapter.removeItem(pos);
+                        return true;
+                    default:
+                        return false;
+                }
             }
         });
         popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {

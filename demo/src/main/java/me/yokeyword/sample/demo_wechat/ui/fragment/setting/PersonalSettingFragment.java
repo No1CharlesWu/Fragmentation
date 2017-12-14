@@ -13,13 +13,8 @@ import android.widget.Toast;
 import java.util.Map;
 
 import me.yokeyword.sample.R;
-import me.yokeyword.sample.demo_wechat.adapter.AlertAdapter;
-import me.yokeyword.sample.demo_wechat.adapter.NewAlertAdapter;
 import me.yokeyword.sample.demo_wechat.base.BaseBackFragment;
-import me.yokeyword.sample.demo_wechat.entity.Alert;
 import me.yokeyword.sample.demo_wechat.net.MySharePreference;
-import me.yokeyword.sample.demo_wechat.ui.fragment.CycleFragment;
-import me.yokeyword.sample.demo_wechat.ui.fragment.second.ViewFragment;
 
 public class PersonalSettingFragment extends BaseBackFragment {
     private EditText mticker_delay;//检查超过ticker_delay就显示红色，否则绿色
