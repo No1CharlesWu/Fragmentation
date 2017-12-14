@@ -12,22 +12,29 @@ import android.widget.TextView;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import me.yokeyword.sample.R;
 import me.yokeyword.sample.demo_wechat.entity.Ticker;
 import me.yokeyword.sample.demo_wechat.listener.OnItemClickListener;
+import me.yokeyword.sample.demo_wechat.net.MySharePreference;
 
 /**
  * Created by YoKeyword on 16/6/30.
  */
 public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.VH> {
-    public static int delay = 5;
+    private MySharePreference service;
+    Map<String, String> params;
+    public int delay = 5;
     private LayoutInflater mInflater;
     private static List<Ticker> mItems = new ArrayList<>();
 
     private OnItemClickListener mClickListener;
 
     public TickerAdapter(Context context) {
+        service = new MySharePreference(context);
+        params = service.getPreferences();
+        delay = Integer.valueOf(params.get("ticker_delay"));
         mInflater = LayoutInflater.from(context);
     }
 
@@ -85,6 +92,8 @@ public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.VH> {
         item.time_offset = (System.currentTimeMillis() - item.ticker_time) / 1000;
         holder.tickertime.setText("更新于约" + item.time_offset +"秒之前：");
 
+        params = service.getPreferences();
+        delay = Integer.valueOf(params.get("ticker_delay"));
         if (item.time_offset <= delay){
             holder.tickername.setTextColor(Color.GREEN);
         }
