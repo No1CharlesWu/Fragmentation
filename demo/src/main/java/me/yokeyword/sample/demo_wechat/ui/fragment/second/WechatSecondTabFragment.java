@@ -142,7 +142,7 @@ public class WechatSecondTabFragment extends BaseMainFragment  implements SwipeR
                 mAdapter.mNotify();
                 mRefreshLayout.setRefreshing(false);
             }
-        }, 1000);
+        }, 0);
     }
 
     /**
@@ -150,7 +150,7 @@ public class WechatSecondTabFragment extends BaseMainFragment  implements SwipeR
      */
     @Subscribe
     public void onTabSelectedEvent(TabSelectedEvent event) {
-        if (event.position != MainFragment.FIRST) return;
+        if (event.position != MainFragment.SECOND) return;
 
         if (mInAtTop) {
             mRefreshLayout.setRefreshing(true);
