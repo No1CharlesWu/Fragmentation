@@ -119,7 +119,7 @@ public class WechatFirstTabFragment extends BaseMainFragment implements SwipeRef
         mInteraction = new Interaction();
         MainFragment mainFragment = (MainFragment) getActivity().getSupportFragmentManager().findFragmentByTag("MainFragment");
 
-        mTickerTimer = new TickerTimer(1000, 2000, mAdapter);
+        mTickerTimer = new TickerTimer(getContext(),1000, 2000, mAdapter);
     }
 
     private List<Ticker> initDatas() {

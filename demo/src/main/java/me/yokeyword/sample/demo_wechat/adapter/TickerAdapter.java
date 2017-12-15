@@ -24,7 +24,7 @@ import me.yokeyword.sample.demo_wechat.net.MySharePreference;
  */
 public class TickerAdapter extends RecyclerView.Adapter<TickerAdapter.VH> {
     private MySharePreference service;
-    Map<String, String> params;
+    private Map<String, String> params;
     public int delay = 5;
     private LayoutInflater mInflater;
     private static List<Ticker> mItems = new ArrayList<>();

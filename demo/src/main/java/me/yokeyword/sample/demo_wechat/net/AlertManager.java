@@ -1,7 +1,10 @@
 package me.yokeyword.sample.demo_wechat.net;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import me.yokeyword.sample.demo_wechat.entity.Alert;
 import me.yokeyword.sample.demo_wechat.entity.Ticker;
@@ -11,8 +14,13 @@ import me.yokeyword.sample.demo_wechat.entity.Ticker;
  */
 
 public class AlertManager {
+    private MySharePreference service;
+    private Map<String, String> params;
+    public int alert_delay = 3;
+    public int repeat_alert_delay = 300;
     private List<Ticker> mTList;
     private List<Alert> mAList;
+    private Context mContext;
 
     private static List<Alert> rAList = new ArrayList<>();
 
@@ -20,7 +28,8 @@ public class AlertManager {
 
     }
 
-    public AlertManager(List<Ticker> T, List<Alert> A){
+    public AlertManager(Context context, List<Ticker> T, List<Alert> A){
+        this.mContext = context;
         this.mTList = T;
         this.mAList = A;
 
@@ -28,14 +37,20 @@ public class AlertManager {
     }
 
     private void findTriggeredAlert(){
+        service = new MySharePreference(mContext);
+        params = service.getPreferences();
+        alert_delay = Integer.valueOf(params.get("alert_delay"));
+        repeat_alert_delay = Integer.valueOf(params.get("repeat_alert_delay"));
+        long now_time = System.currentTimeMillis();
         for (Alert alert:mAList) {
             PrintAlert(alert);
             switch (alert.type){
                 case 0:
                     try {
-                        if (alert.had_alert == 0 && findTicker(alert.Sma_web) != null) {
+                        if ((alert.last_alerted_time == 0 || (now_time - alert.last_alerted_time)/1000 >= repeat_alert_delay) && alert.had_alert == 0 && findTicker(alert.Sma_web) != null) {
                             if (findTicker(alert.Sma_web).ticker_last >= alert.Sma_high_price || findTicker(alert.Sma_web).ticker_last <= alert.Sma_low_price) {
-                                alert.had_alert = 1;
+//                                alert.had_alert = 1;
+                                alert.last_alerted_time = now_time;
                                 rAList.add(alert);
                                 System.out.println("******" + alert.alert_name + alert.Sma_web + "******");
                             }
@@ -46,11 +61,13 @@ public class AlertManager {
                     break;
                 case 1:
                     try{
-                        if (alert.had_alert == 0
+                        if ((alert.last_alerted_time == 0 || (now_time - alert.last_alerted_time)/1000 >= repeat_alert_delay)
+                                && alert.had_alert == 0
                                 && findTicker(alert.Msa_web_high) != null
                                 && findTicker(alert.Msa_web_low) != null
                                 && ((findTicker(alert.Msa_web_high).ticker_last / findTicker(alert.Msa_web_low).ticker_last) - 1) * 100 >= alert.Msa_spread){
-                            alert.had_alert = 1;
+//                            alert.had_alert = 1;
+                            alert.last_alerted_time = now_time;
                             rAList.add(alert);
                             System.out.println("******" + alert.alert_name + "******");
                         }

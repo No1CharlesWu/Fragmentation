@@ -1,5 +1,6 @@
 package me.yokeyword.sample.demo_wechat.net;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 
@@ -23,8 +24,10 @@ public class TickerTimer {
     public int delay = 1000;
     public int period = 2000;
     private TickerAdapter mAdapter;
+    private Context mContext;
 
-    public TickerTimer(int delay, int period, TickerAdapter mAdapter){
+    public TickerTimer(Context context, int delay, int period, TickerAdapter mAdapter){
+        this.mContext = context;
         this.delay = delay;
         this.period = period;
         this.mAdapter = mAdapter;
@@ -48,7 +51,7 @@ public class TickerTimer {
                     mAdapter.setDatas(mL);
                     //设置差价提醒
                     //TODO:
-                    AlertManager AM = new AlertManager(mL, (new AlertAdapter()).getAlertList());
+                    AlertManager AM = new AlertManager(mContext, mL, (new AlertAdapter()).getAlertList());
                 }
                 Message message = new Message();
                 message.what = 1;

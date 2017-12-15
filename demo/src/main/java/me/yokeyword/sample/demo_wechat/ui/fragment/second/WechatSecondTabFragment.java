@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import org.greenrobot.eventbus.Subscribe;
 
+import me.yokeyword.eventbusactivityscope.EventBusActivityScope;
 import me.yokeyword.sample.R;
 import me.yokeyword.sample.demo_wechat.adapter.AlertAdapter;
 import me.yokeyword.sample.demo_wechat.base.BaseMainFragment;
@@ -57,6 +58,8 @@ public class WechatSecondTabFragment extends BaseMainFragment  implements SwipeR
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh_layout);
         mRecy = (RecyclerView) view.findViewById(R.id.recy);
+
+        EventBusActivityScope.getDefault(_mActivity).register(this);
 
         mToolbar.setTitle(R.string.alert_list);
     }
@@ -136,6 +139,7 @@ public class WechatSecondTabFragment extends BaseMainFragment  implements SwipeR
             public void run() {
                 //TODO:这里添加更新数据，模拟
 
+                mAdapter.mNotify();
                 mRefreshLayout.setRefreshing(false);
             }
         }, 1000);
@@ -163,5 +167,6 @@ public class WechatSecondTabFragment extends BaseMainFragment  implements SwipeR
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        EventBusActivityScope.getDefault(_mActivity).unregister(this);
     }
 }

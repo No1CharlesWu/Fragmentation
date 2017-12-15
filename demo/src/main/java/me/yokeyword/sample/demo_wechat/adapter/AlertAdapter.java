@@ -92,10 +92,10 @@ public class AlertAdapter extends RecyclerView.Adapter<AlertAdapter.VH> {
         Alert item = mItems.get(position);
 
         if (item.had_alert == 0){
-            holder.had_alert.setText("未提醒");
+            holder.had_alert.setText("已开启提醒");
         }
         else if (item.had_alert == 1){
-            holder.had_alert.setText("已提醒");
+            holder.had_alert.setText("已关闭提醒");
         }
         switch (item.type){
             case 0:
