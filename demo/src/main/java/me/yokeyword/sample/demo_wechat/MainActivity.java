@@ -3,6 +3,8 @@ package me.yokeyword.sample.demo_wechat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.util.Log;
 
 import me.yokeyword.fragmentation.SupportActivity;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
@@ -10,6 +12,8 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
 import me.yokeyword.sample.R;
 import me.yokeyword.sample.demo_wechat.net.AlertService;
 import me.yokeyword.sample.demo_wechat.ui.fragment.MainFragment;
+import me.yokeyword.sample.demo_wechat.ui.fragment.second.WechatSecondTabFragment;
+import me.yokeyword.sample.demo_wechat.ui.fragment.setting.AlertListFragment;
 
 /**
  * 仿微信交互方式Demo
@@ -43,5 +47,34 @@ public class MainActivity extends SupportActivity {
     public FragmentAnimator onCreateFragmentAnimator() {
         // 设置横向(和安卓4.x动画相同)
         return new DefaultHorizontalAnimator();
+    }
+
+    @Override
+    protected void onResume() {
+        getNotify(getIntent());
+        super.onResume();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        getNotify(intent);
+        setIntent(intent);
+    }
+
+    private void getNotify(Intent intent){
+        String value = intent.getStringExtra("toValue");
+
+        Log.i("TAG", "onNewIntent: " + value);
+
+        if(!TextUtils.isEmpty(value)) {
+            switch (value) {
+                case "href":
+                    MainFragment mainFragment  = new MainFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fl_container, mainFragment, "MainFragment").commitAllowingStateLoss();
+                    //这里不是用的commit提交，用的commitAllowingStateLoss方式。commit不允许后台执行，不然会报Deferring update until onResume 错误
+                    break;
+            }
+        }
+        super.onNewIntent(intent);
     }
 }

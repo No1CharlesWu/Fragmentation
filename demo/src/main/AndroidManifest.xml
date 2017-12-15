@@ -2,7 +2,7 @@
 <manifest package="me.yokeyword.sample"
           xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:name=".App"
         android:icon="@drawable/ic_launcher"
@@ -22,10 +22,11 @@
             android:name=".demo_flow.MainActivity"
             android:launchMode="singleTask"/>
 
-        <activity android:name=".demo_wechat.MainActivity">
+        <activity
+            android:name=".demo_wechat.MainActivity"
+            android:launchMode="singleTask">
         <intent-filter>
             <action android:name="android.intent.action.MAIN"/>
-
             <category android:name="android.intent.category.LAUNCHER"/>
         </intent-filter>
         </activity>
@@ -43,6 +44,7 @@
                 <action android:name="CLOCK"/>
             </intent-filter>
         </receiver>
+
         <service android:name=".demo_wechat.net.AlertService"
             android:enabled="true" />
 

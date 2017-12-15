@@ -23,6 +23,6 @@ public class AlertReceiver extends BroadcastReceiver {
         //调用播放系统闹钟声音
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         Ringtone r = RingtoneManager.getRingtone(context,notification);
-        r.play();
+//        r.play();
     }
 }
