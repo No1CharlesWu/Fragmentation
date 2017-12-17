@@ -23,10 +23,10 @@ public class AlertReceiver extends BroadcastReceiver {
         //调试信息输出
         Log.d("MYTAG", "onclock.............");
         String msg = intent.getStringExtra("msg");
-        Toast.makeText(context,msg,Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
         //调用播放系统闹钟声音
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        final Ringtone r = RingtoneManager.getRingtone(context,notification);
+        final Ringtone r = RingtoneManager.getRingtone(context, notification);
         r.play();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -37,7 +37,7 @@ public class AlertReceiver extends BroadcastReceiver {
                     public void onClick(DialogInterface dialog, int which) {
                         r.stop();
                     }
-        });
+                });
         final AlertDialog ad = builder.create();
         ad.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
         ad.setCanceledOnTouchOutside(false);                                   //点击外面区域不会让dialog消失
@@ -55,5 +55,13 @@ public class AlertReceiver extends BroadcastReceiver {
                 });
             }
         }).start();
+
+        new Handler().postDelayed(new Runnable() {
+
+            public void run() {
+                r.stop();
+            }
+
+        }, 10 * 1000);
     }
 }
