@@ -52,13 +52,13 @@ public class MainActivity extends SupportActivity {
 
     @Override
     protected void onResume() {
-        getNotify(getIntent());
+//        getNotify(getIntent());
         super.onResume();
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
-        getNotify(intent);
+//        getNotify(intent);
         setIntent(intent);
     }
 
@@ -72,6 +72,9 @@ public class MainActivity extends SupportActivity {
                 case "href":
                     MainFragment mainFragment  = new MainFragment();
                     getSupportFragmentManager().beginTransaction().replace(R.id.fl_container, mainFragment, "MainFragment").commitAllowingStateLoss();
+                    if (findFragment(MainFragment.class) == null) {
+                        loadRootFragment(R.id.fl_container, MainFragment.newInstance());
+                    }
                     //这里不是用的commit提交，用的commitAllowingStateLoss方式。commit不允许后台执行，不然会报Deferring update until onResume 错误
                     break;
             }
